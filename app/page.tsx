@@ -1,5 +1,5 @@
 import Image from "next/image";
-import { Gem, Map, MapPin, Navigation, Play, Quote } from "lucide-react";
+import { Gem, Map, MapPin, Navigation, Play, Quote, Clock, Bell, Car, Gift } from "lucide-react";
 import { BookingCard } from "@/components/booking-card";
 import { EditorialCard, ReviewCard, RoomCards } from "@/components/cards";
 import { DiningButtons } from "@/components/dining-buttons";
@@ -207,7 +207,8 @@ export default function HomePage() {
                 desc: "Open Daily: 5:30 AM - 9:00 PM",
                 hiDesc: "प्रतिदिन: सुबह 5:30 से रात्रि 9:00 बजे तक",
                 detail: "Darshan remains open throughout the day for all devotees.",
-                hiDetail: "श्रद्धालुओं के लिए पूरे दिन दर्शन खुले रहते हैं।"
+                hiDetail: "श्रद्धालुओं के लिए पूरे दिन दर्शन खुले रहते हैं।",
+                icon: Clock
               },
               {
                 title: "Aarti Schedule",
@@ -215,7 +216,8 @@ export default function HomePage() {
                 desc: "Mangala: 6:00 AM | Sandhya: 7:00 PM",
                 hiDesc: "मंगला: सुबह 6:00 | संध्या: शाम 7:00 बजे",
                 detail: "Experience the spiritual bliss of daily Aarti ceremonies.",
-                hiDetail: "दैनिक आरती उत्सव में शामिल होकर आध्यात्मिक आनंद प्राप्त करें।"
+                hiDetail: "दैनिक आरती उत्सव में शामिल होकर आध्यात्मिक आनंद प्राप्त करें।",
+                icon: Bell
               },
               {
                 title: "Travel Assistance",
@@ -223,7 +225,8 @@ export default function HomePage() {
                 desc: "Just 2.5 km from Hotel",
                 hiDesc: "होटल से मात्र 2.5 किमी की दूरी",
                 detail: "Local auto and cab booking assistance is available 24/7 at the front desk.",
-                hiDetail: "रिसेप्शन पर 24/7 लोकल ऑटो और टैक्सी बुकिंग सेवा उपलब्ध है।"
+                hiDetail: "रिसेप्शन पर 24/7 लोकल ऑटो और टैक्सी बुकिंग सेवा उपलब्ध है।",
+                icon: Car
               },
               {
                 title: "Prasad & Offerings",
@@ -231,13 +234,14 @@ export default function HomePage() {
                 desc: "Fresh Prasad Counter",
                 hiDesc: "ताज़ा शुद्ध प्रसाद काउंटर",
                 detail: "Get fresh flowers, coconut, and pure traditional sweets directly from the counter.",
-                hiDetail: "काउंटर से ताजे फूल, नारियल और शुद्ध पारंपरिक प्रसाद प्राप्त करें।"
+                hiDetail: "काउंटर से ताजे फूल, नारियल और शुद्ध प्रसाद प्राप्त करें।",
+                icon: Gift
               }
             ].map((item, index) => (
               <Reveal key={item.title} delay={index * 0.05}>
-                <div className="h-full rounded-[28px] bg-white p-6 shadow-soft border border-champagne/45 hover:shadow-glow transition-all duration-300">
+                <div className="h-full rounded-[28px] bg-white p-6 shadow-soft border border-champagne/45 hover:shadow-glow hover:-translate-y-2 transition-all duration-300">
                   <div className="mb-4 inline-block rounded-full bg-gold/10 p-3 text-gold">
-                    <Gem className="h-6 w-6" />
+                    <item.icon className="h-6 w-6" />
                   </div>
                   <h3 className="text-lg font-bold text-green">{item.title}</h3>
                   <p className="font-devanagari text-sm font-bold text-gold mb-3">{item.hi}</p>
@@ -251,6 +255,19 @@ export default function HomePage() {
               </Reveal>
             ))}
           </div>
+
+          <Reveal delay={0.2}>
+            <div className="mt-10 text-center">
+              <a 
+                href="https://maps.google.com/?q=Manona+Dham+Shyam+Mandir+Aonla"
+                target="_blank"
+                rel="noreferrer"
+                className="inline-flex items-center gap-2 rounded-full bg-green px-8 py-4 font-bold text-white shadow-soft transition hover:bg-gold hover:scale-105 duration-300"
+              >
+                <Map className="h-5 w-5 text-gold" /> Get Directions to Manona Dham / मार्ग निर्देश देखें 🗺️
+              </a>
+            </div>
+          </Reveal>
         </div>
       </section>
 
