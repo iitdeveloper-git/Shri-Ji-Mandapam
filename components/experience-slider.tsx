@@ -36,24 +36,24 @@ const slides = [
   },
   {
     image: "/room-service-bed.jpg",
-    title: "Attentive Room Prep",
-    hi: "24/7 कमरा तैयारी",
-    text: "Dedicated room service preparing your space daily with crisp linens and comfort.",
-    hiText: "प्रतिदिन ताजे बिस्तरों और पूर्ण आराम के साथ आपके कमरे को तैयार करती समर्पित सेवा।"
+    title: "Luxury Housekeeping",
+    hi: "लक्ज़री हाउसकीपिंग",
+    text: "Professional housekeeping team preparing your suite bed daily with fresh linens.",
+    hiText: "ताजा साफ बिस्तरों के साथ आपके सुइट रूम को प्रतिदिन तैयार करती लक्ज़री हाउसकीपिंग सेवा।"
   },
   {
     image: "/dining-celebration.jpg",
-    title: "Dining Celebrations",
-    hi: "डाइनिंग उत्सव",
-    text: "Celebrate special family reunions and corporate milestones with curated feasts.",
-    hiText: "सुव्यवस्थित दावतों के साथ विशेष पारिवारिक पुनर्मिलन और कॉर्पोरेट मील के पत्थर मनाएं।"
+    title: "Toast to Celebrations",
+    hi: "उत्सव और टोस्ट",
+    text: "Enjoy custom food pairings and raise a toast to special family reunions.",
+    hiText: "विशेष पारिवारिक पुनर्मिलन और दावतों के बीच चियर्स और भोजन का आनंद लें।"
   },
   {
     image: "/cityview-dining.png",
-    title: "Skyline Fine Dining",
-    hi: "आकाशगंगा डाइनिंग",
-    text: "Indulge in gourmet pure-vegetarian dishes overlooking the majestic city lights.",
-    hiText: "शहर की सुंदर रोशनी को देखते हुए लजीज शुद्ध शाकाहारी व्यंजनों का आनंद लें।"
+    title: "Skyline Dining Room",
+    hi: "आकाशगंगा डाइनिंग रूम",
+    text: "Indulge in fine-dining menus overlooking the beautiful city skyline views.",
+    hiText: "शहर के भव्य स्काईलाइन नज़ारों को देखते हुए शाही डिनर का आनंद लें।"
   },
   {
     image: "/modern-hotel-lounge.png",
