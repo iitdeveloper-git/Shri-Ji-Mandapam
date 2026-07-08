@@ -89,10 +89,10 @@ export default function HomePage() {
       <section className="section-y bg-ivory">
         <div className="luxury-container grid gap-10 lg:grid-cols-[.9fr_1.1fr] lg:items-center">
           <Reveal>
-            <SectionHeader eyebrow="Spa & Wellness" title="Rituals that return the body to quiet" hindi="आराम एवं वेलनेस" text="Ayurveda, massage, yoga, steam, breathwork, and sleep rituals are shaped around each guest's pace." />
+            <SectionHeader eyebrow="Spiritual Assembly" title="A sacred space for pilgrim gatherings" hindi="सत्संग और प्रार्थना हॉल" text="Hotel B Anand features a beautifully decorated grand satsang and assembly hall for prayer sessions, spiritual discourses, and group pilgrim events." />
           </Reveal>
           <div className="relative h-[620px] overflow-hidden rounded-[32px] shadow-soft">
-            <Image src={images.spa} alt="Spa and wellness suite at Hotel B Anand" fill sizes="(min-width: 1024px) 55vw, 100vw" className="object-cover" />
+            <Image src={images.spa} alt="Spiritual satsang hall at Hotel B Anand" fill sizes="(min-width: 1024px) 55vw, 100vw" className="object-cover" />
           </div>
         </div>
       </section>

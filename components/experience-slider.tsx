@@ -15,10 +15,10 @@ const slides = [
   },
   {
     image: "/hotel-1.jpg",
-    title: "Spa & Wellness Room",
-    hi: "स्पा और वेलनेस रूम",
-    text: "Rejuvenate your senses with our premium spa therapies and relaxing massage rituals.",
-    hiText: "हमारी प्रीमियम स्पा थेरेपी और आरामदायक मालिश के साथ अपनी इंद्रियों को फिर से जीवंत करें।"
+    title: "Spiritual Assembly Hall",
+    hi: "सत्संग और प्रार्थना हॉल",
+    text: "A beautifully decorated grand assembly hall for pilgrim gatherings, prayers, and spiritual discourses.",
+    hiText: "धार्मिक सभाओं, भजनों और सत्संग के लिए फूलों से सजाया गया भव्य प्रार्थना हॉल।"
   },
   {
     image: "/catering-3.jpg",
