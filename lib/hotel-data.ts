@@ -156,22 +156,14 @@ export const offers = [
 ];
 
 export const gallery = [
-  "/new-gallery-1.jpg",
+  "/room-service-bed.jpg",
   "/luxury-bathroom-suite.jpg",
-  "/hotel-3.png",
-  "/hotel-2.jpg",
   "/marble-rainshower.jpg",
-  "/new-gallery-2.jpg",
-  "/hotel-1.jpg",
   "/indoor-pool-garden.jpg",
-  "/new-gallery-3.jpg",
-  "/new-gallery-4.jpg",
   "/luxury-lap-pool.jpg",
-  "/new-gallery-5.png",
-  "/catering-1.jpg",
-  "/catering-2.jpg",
-  "/catering-3.jpg",
-  "/catering-4.jpg"
+  "/luxury-bar.png",
+  "/modern-hotel-lounge.png",
+  "/lounge-sunset.jpg"
 ];
 
 export const galleryCategories = [

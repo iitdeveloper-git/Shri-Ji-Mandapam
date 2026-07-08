@@ -190,7 +190,7 @@ export default function HomePage() {
               <h2 className="mt-4 heading-lg text-green">A glimpse of Hotel B Anand</h2>
               <p className="mt-2 font-devanagari text-lg text-gold">गैलरी</p>
               <p className="mt-4 max-w-none text-base leading-7 text-charcoal font-semibold">
-                View our comfortable rooms, restaurant, and beautifully decorated event settings.
+                View our luxury suites, fine-dining restaurant, premium bar, indoor swimming pool, library, and scenic rooftop lounge.
               </p>
             </div>
           </div>
