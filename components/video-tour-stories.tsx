@@ -179,7 +179,7 @@ export function VideoTourStories() {
 
         {/* Branding Footer */}
         <div className="mt-5 pt-3 border-t border-white/15 w-full flex items-center justify-center gap-1.5 text-[9px] uppercase tracking-widest text-champagne font-bold">
-          <span>www.iitdeveloper.com</span>
+          <span>info@hotelbanand.com</span>
         </div>
       </div>
     </div>
