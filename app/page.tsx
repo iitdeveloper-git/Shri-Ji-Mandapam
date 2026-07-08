@@ -143,11 +143,14 @@ export default function HomePage() {
             <div className="relative w-full max-w-sm aspect-[9/16] overflow-hidden rounded-[32px] border-4 border-gold shadow-glow bg-charcoal">
               <iframe 
                 src="https://assets.pinterest.com/ext/embed.html?id=295830269298114117" 
-                className="absolute inset-0 w-full h-full border-0" 
+                className="absolute w-[108%] h-[108%] -left-[4%] -top-[4%] border-0" 
                 scrolling="no" 
                 allowFullScreen
                 title="Hotel B Anand Cinematic Video Tour"
               />
+              <div className="absolute top-6 left-1/2 -translate-x-1/2 z-10 bg-charcoal/85 backdrop-blur-sm px-4 py-2 rounded-full border border-gold/40 shadow-soft pointer-events-none whitespace-nowrap">
+                <span className="text-xs uppercase tracking-widest text-champagne font-bold">Hotel B Anand</span>
+              </div>
               <div className="absolute bottom-6 left-1/2 -translate-x-1/2 z-10 bg-charcoal/85 backdrop-blur-sm px-4 py-2 rounded-full border border-gold/40 shadow-soft pointer-events-none whitespace-nowrap">
                 <span className="text-xs uppercase tracking-widest text-champagne font-bold">www.iitdeveloper.com</span>
               </div>
