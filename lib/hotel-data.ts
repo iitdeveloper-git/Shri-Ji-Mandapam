@@ -50,7 +50,7 @@ export const navItems = [
 ];
 
 export const images = {
-  hero: "/hotel-b-anand-banner.png",
+  hero: "/hotel-b-anand-capsule-interior.png",
   palace: "https://images.unsplash.com/photo-1566073771259-6a8506099945?auto=format&fit=crop&w=2000&q=85",
   lobby: "/lobby-reception-royal.png",
   suite: "https://images.unsplash.com/photo-1618221195710-dd6b41faaea6?auto=format&fit=crop&w=1800&q=85",

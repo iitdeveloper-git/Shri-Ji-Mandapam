@@ -22,7 +22,7 @@ export default function HomePage() {
             <p className="eyebrow mb-5">Hotel B Anand · Aonla, Bareilly</p>
             <h1 className="heading-xl mx-auto max-w-6xl">Hotel B Anand</h1>
             <p className="mt-3 font-devanagari text-3xl text-champagne">लक्ज़री स्टे और बेमिसाल मेहमाननवाज़ी</p>
-            <p className="mt-7 mx-auto max-w-2xl text-lg leading-8 text-white font-semibold">Experience premium hospitality and modern luxury. Elegant air-conditioned rooms, a top-rated pure-veg restaurant, and exceptional guest services near Manona Dham.</p>
+            <p className="mt-7 mx-auto max-w-2xl text-lg leading-8 text-white font-semibold">Divine comfort meets premium luxury. Savor shuddh shakahari dining and clean, peaceful AC rooms just 2.5 km from Shree Khatu Shyam Mandir, Manona Dham.</p>
           </Reveal>
           <div className="mt-14 w-full max-w-4xl">
             <BookingCard />
