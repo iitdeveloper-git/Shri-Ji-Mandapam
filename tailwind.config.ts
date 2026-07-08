@@ -25,6 +25,15 @@ const config: Config = {
       backgroundImage: {
         marble:
           "radial-gradient(circle at 20% 20%, rgba(234,219,200,.55), transparent 30%), radial-gradient(circle at 80% 0%, rgba(182,141,64,.16), transparent 26%), linear-gradient(135deg, #fff, #faf7f2 48%, #eadbc8)"
+      },
+      animation: {
+        kenburns: "kenburns 4s ease-out infinite alternate"
+      },
+      keyframes: {
+        kenburns: {
+          "0%": { transform: "scale(1)" },
+          "100%": { transform: "scale(1.15)" }
+        }
       }
     }
   },
