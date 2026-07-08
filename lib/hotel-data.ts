@@ -33,11 +33,11 @@ export const hotel = {
   hindiTagline: "मनोना धाम के पास सर्वश्रेष्ठ होटल · प्रीमियम रेस्टोरेंट · लक्ज़री रूम्स",
   phone: "+91-7302755534",
   whatsapp: "917302755534",
-  email: "info@rajgardenaonla.com",
+  email: "info@hotelbanand.com",
   address: "Aonla - Shahabad Road, Behta Janu, Aonla, Bareilly District, Uttar Pradesh 243301, India",
   shortAddress: "Aonla, Bareilly, Uttar Pradesh",
   coordinates: { lat: 28.2855111, lng: 79.1497908 },
-  baseUrl: "https://www.rajgardenhotels.com"
+  baseUrl: "https://www.hotelbanand.com"
 };
 
 export const navItems = [
