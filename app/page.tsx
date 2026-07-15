@@ -562,16 +562,16 @@ export default function HomePage() {
       <section className="bg-charcoal pb-20 pt-4">
         <div className="luxury-container">
           <Reveal>
-            <div className="overflow-hidden rounded-[32px] border border-white/10 shadow-glow relative">
+            <div className="overflow-hidden rounded-[32px] border border-white/10 shadow-glow relative h-[400px]">
               <iframe 
                 src="https://maps.google.com/maps?q=Shri%20Ji%20Mandapam,%20Aonla-Bisauli%20Road,%20near%20manona%20dham,%20Aonla,%20Uttar%20Pradesh%20243301&t=&z=15&ie=UTF8&iwloc=&output=embed" 
                 width="100%" 
-                height="450" 
+                height="460" 
                 style={{ border: 0 }}
                 allowFullScreen={true}
                 loading="lazy" 
                 referrerPolicy="no-referrer-when-downgrade"
-                className="w-full h-[400px] object-cover opacity-90 transition duration-500 hover:opacity-100"
+                className="w-full h-[460px] object-cover opacity-90 transition duration-500 hover:opacity-100 absolute left-0 top-0"
               />
             </div>
           </Reveal>
