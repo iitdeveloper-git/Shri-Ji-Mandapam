@@ -6,15 +6,15 @@ const config: Config = {
   theme: {
     extend: {
       colors: {
-        ivory: "#FAF7F2",
-        gold: "#B68D40",
-        champagne: "#EADBC8",
-        green: "#234234",
-        brown: "#3A2A1C",
-        charcoal: "#222222",
-        crimson: "#c1272d",
-        "crimson-dark": "#9e1b20",
-        "crimson-light": "#fdf2f2"
+        ivory: "#F4D9B5",
+        gold: "#EDC4A3",
+        champagne: "#F4D9B5",
+        green: "#53131E",
+        brown: "#53131E",
+        charcoal: "#231919",
+        crimson: "#770521",
+        "crimson-dark": "#53131E",
+        "crimson-light": "#F9E9D5"
       },
       fontFamily: {
         heading: ["var(--font-cormorant)", "serif"],
@@ -22,12 +22,12 @@ const config: Config = {
         devanagari: ["var(--font-devanagari)", "sans-serif"]
       },
       boxShadow: {
-        soft: "0 24px 80px rgba(58,42,28,0.12)",
-        glow: "0 0 44px rgba(182,141,64,0.45)"
+        soft: "0 24px 80px rgba(83,19,30,0.14)",
+        glow: "0 0 44px rgba(237,196,163,0.42)"
       },
       backgroundImage: {
         marble:
-          "radial-gradient(circle at 20% 20%, rgba(234,219,200,.55), transparent 30%), radial-gradient(circle at 80% 0%, rgba(182,141,64,.16), transparent 26%), linear-gradient(135deg, #fff, #faf7f2 48%, #eadbc8)"
+          "radial-gradient(circle at 20% 20%, rgba(244,217,181,.68), transparent 30%), radial-gradient(circle at 80% 0%, rgba(119,5,33,.12), transparent 26%), linear-gradient(135deg, #fff8ef, #f9e9d5 48%, #edc4a3)"
       },
       animation: {
         kenburns: "kenburns 4s ease-out infinite alternate"

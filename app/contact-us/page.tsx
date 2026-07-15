@@ -18,7 +18,7 @@ export default function ContactUsPage() {
     { icon: MapPin, label: "Visit the venue", value: "Aonla–Bisauli Road", note: "Get Google Maps directions", href: directionsHref, external: true },
   ];
   return (
-    <main className="bg-[#f7f2ea] pt-[104px] md:pt-[136px]">
+    <main className="bg-crimson-light pt-[104px] md:pt-[136px]">
       <section className="relative min-h-[630px] overflow-hidden bg-charcoal">
         <Image src="/wedding_hall_chandeliers.jpg" alt="Elegant celebration hall at Shri Ji Mandapam" fill priority sizes="100vw" className="object-cover" />
         <div className="absolute inset-0 bg-[linear-gradient(90deg,rgba(20,11,9,.92)_0%,rgba(20,11,9,.65)_48%,rgba(20,11,9,.2)_100%)]" />

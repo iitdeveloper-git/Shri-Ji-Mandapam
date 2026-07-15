@@ -37,8 +37,8 @@ const photos: GalleryPhoto[] = [
 export default function GalleryPage() {
   const whatsapp = `https://wa.me/${hotel.whatsapp}?text=${encodeURIComponent("Namaste Shri Ji Mandapam! I saw your wedding gallery and would like to discuss my celebration.")}`;
   return (
-    <main className="bg-[#fbf1cf] pt-[104px] md:pt-[136px]">
-      <section className="relative overflow-hidden bg-[#200b0c] pb-20 pt-14 text-white lg:pb-28">
+    <main className="bg-ivory pt-[104px] md:pt-[136px]">
+      <section className="relative overflow-hidden bg-charcoal pb-20 pt-14 text-white lg:pb-28">
         <div className="absolute inset-0 opacity-25"><Image src="/wedding-hero.jpg" alt="" fill priority sizes="100vw" className="object-cover blur-[2px]" /></div>
         <div className="absolute inset-0 bg-[linear-gradient(90deg,rgba(31,6,8,.95),rgba(31,6,8,.55),rgba(31,6,8,.9))]" />
         <div className="luxury-container relative">
@@ -48,7 +48,7 @@ export default function GalleryPage() {
             <p className="mt-7 max-w-xl text-base leading-8 text-white/70">From the first welcome to the final dance, explore spaces and details designed to make your wedding beautifully yours.</p>
           </div>
           <div className="relative mx-auto max-w-5xl">
-            <div className="relative aspect-[16/10] border-[10px] border-[#fbf1cf] shadow-2xl sm:border-[16px]">
+            <div className="relative aspect-[16/10] border-[10px] border-ivory shadow-2xl sm:border-[16px]">
               <Image src="/wedding_mandap_canopy.jpg" alt="Wedding mandap prepared at Shri Ji Mandapam" fill sizes="90vw" className="object-cover" />
               <div className="absolute inset-0 bg-gradient-to-t from-black/75 via-transparent to-black/10" />
               <p className="absolute bottom-7 left-7 max-w-lg font-heading text-4xl font-bold leading-none sm:bottom-10 sm:left-10 sm:text-6xl">A perfect wedding dream starts here.</p>
@@ -58,7 +58,7 @@ export default function GalleryPage() {
         </div>
       </section>
 
-      <section className="bg-[#fbf1cf] py-20">
+      <section className="bg-ivory py-20">
         <div className="luxury-container">
           <div className="mx-auto mb-12 max-w-3xl text-center">
             <p className="flex items-center justify-center gap-2 text-xs font-bold uppercase tracking-[.24em] text-crimson"><Camera className="h-4 w-4" /> Wedding stories</p>

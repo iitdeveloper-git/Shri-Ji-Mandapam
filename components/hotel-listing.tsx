@@ -37,7 +37,7 @@ export function StayCategoryStrip() {
 
 export function HotelListingSection() {
   return (
-    <section className="section-y bg-[#f4f4f1]">
+    <section className="section-y bg-crimson-light">
       <div className="luxury-container">
         <div className="mb-6 flex flex-col justify-between gap-3 md:flex-row md:items-end">
           <div>

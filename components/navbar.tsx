@@ -27,7 +27,7 @@ export function Navbar() {
   ];
 
   return (
-    <header className="fixed inset-x-0 top-0 z-50 bg-white shadow-[0_8px_24px_rgba(193,39,45,0.08)]">
+    <header className="fixed inset-x-0 top-0 z-50 bg-crimson-light shadow-[0_8px_28px_rgba(83,19,30,0.12)]">
       <div className="hidden bg-crimson py-2 text-xs font-semibold text-white/85 md:block">
         <div className="luxury-container flex items-center justify-between gap-4">
           <div className="flex items-center gap-5">
@@ -43,7 +43,7 @@ export function Navbar() {
         </div>
       </div>
 
-      <nav className={cn("luxury-container flex items-center justify-between bg-white transition-all", scrolled ? "py-3" : "py-4")}>
+      <nav className={cn("luxury-container flex items-center justify-between bg-crimson-light transition-all", scrolled ? "py-3" : "py-4")}>
         <Link href="/" className="flex items-center gap-3" aria-label="Shri Ji Mandapam home">
           <span className="grid h-11 w-11 place-items-center rounded-full bg-crimson font-heading text-xl text-gold font-bold">S</span>
           <span>
@@ -73,7 +73,7 @@ export function Navbar() {
       </nav>
 
       {open ? (
-        <div className="border-t border-crimson/10 bg-white p-4 shadow-soft lg:hidden">
+        <div className="border-t border-crimson/10 bg-crimson-light p-4 shadow-soft lg:hidden">
           <div className="luxury-container grid gap-2">
             {navLinks.map((item) => (
               <Link key={item.href} href={item.href} onClick={() => setOpen(false)} className="rounded-xl bg-crimson-light px-4 py-3 font-semibold text-crimson">
