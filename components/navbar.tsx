@@ -3,9 +3,8 @@
 import Link from "next/link";
 import { useEffect, useState } from "react";
 import { Mail, MapPin, Menu, Phone, X } from "lucide-react";
-import { hotel, navItems } from "@/lib/hotel-data";
+import { hotel } from "@/lib/hotel-data";
 import { cn } from "@/lib/utils";
-import { BookingModal } from "./booking-modal";
 
 export function Navbar() {
   const [open, setOpen] = useState(false);

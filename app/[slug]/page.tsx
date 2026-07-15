@@ -7,9 +7,13 @@ import { EditorialCard } from "@/components/cards";
 import { FAQAccordion } from "@/components/accordion";
 import { GalleryLightbox } from "@/components/gallery-lightbox";
 import { SectionHeader } from "@/components/section-header";
-import { attractions, diningVenues, experiences, gallery, images, offers, pageContent, policyPages, rooms, villas } from "@/lib/hotel-data";
+import { attractions, diningVenues, experiences, gallery, images, offers, pageContent, policyPages, villas } from "@/lib/hotel-data";
 
-const allPages = { ...pageContent, "privacy-policy": policyPages.privacy, terms: policyPages.terms };
+const dynamicPageContent = Object.fromEntries(
+  Object.entries(pageContent).filter(([slug]) => slug !== "book-now")
+) as Omit<typeof pageContent, "book-now">;
+
+const allPages = { ...dynamicPageContent, "privacy-policy": policyPages.privacy, terms: policyPages.terms };
 type Slug = keyof typeof allPages;
 
 export function generateStaticParams() {
@@ -82,7 +86,7 @@ export default async function ContentPage({ params }: { params: Promise<{ slug: 
           {slug === "offers" ? <section className="section-y bg-white"><div className="luxury-container"><SectionHeader eyebrow="Packages" title="Direct booking benefits" /><div className="grid gap-5 lg:grid-cols-3">{offers.map((offer) => <EditorialCard key={offer.title} item={offer} />)}</div></div></section> : null}
           {slug === "nearby-attractions" ? <Attractions /> : null}
           {slug === "faq" ? <section className="section-y bg-white"><div className="luxury-container"><FAQAccordion /></div></section> : null}
-          {slug === "contact" || slug === "book-now" ? <ContactBooking compact={slug === "contact"} /> : null}
+          {slug === "contact" ? <ContactBooking compact /> : null}
           <section className="section-y bg-ivory"><div className="luxury-container"><SectionHeader eyebrow="Gallery" title="Visual proof for guests and search" hindi="गैलरी" /><GalleryLightbox images={gallery.slice(0, 8)} /></div></section>
         </>
       )}
@@ -172,21 +176,6 @@ function RoomsSuitesShowcase() {
         </div>
       </section>
     </main>
-  );
-}
-
-function RoomDetailGrid() {
-  return (
-    <div className="mt-10 grid gap-4 md:grid-cols-3">
-      {rooms.map((room) => (
-        <article key={room.title} className="rounded-[24px] bg-ivory p-6">
-          <h3 className="font-heading text-3xl text-green">{room.title}</h3>
-          <p className="mt-1 font-devanagari text-gold">{room.hi}</p>
-          <p className="mt-3 text-sm text-charcoal/65">{room.size} · {room.price} / night</p>
-          <div className="mt-4 flex flex-wrap gap-2">{room.amenities.map((item) => <span key={item} className="rounded-full bg-white px-3 py-1 text-xs font-bold text-green">{item}</span>)}</div>
-        </article>
-      ))}
-    </div>
   );
 }
 

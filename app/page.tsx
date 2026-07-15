@@ -4,16 +4,13 @@ import Image from "next/image";
 import { useState } from "react";
 import { 
   Phone,
-  Mail,
   MapPin,
   Calendar,
-  Users,
   CheckCircle,
   Sparkles,
   ShieldCheck,
   Maximize2,
   Clock,
-  ChevronRight,
   PartyPopper,
   UtensilsCrossed,
   Home,
@@ -115,7 +112,7 @@ export default function HomePage() {
         <div className="luxury-container relative z-10 text-center flex flex-col items-center">
           <Reveal>
             <span className="inline-flex items-center gap-2 rounded-full bg-crimson/25 px-4 py-1.5 text-xs font-semibold text-gold tracking-widest uppercase border border-crimson/30 mb-6">
-              <Sparkles className="h-3.5 w-3.5" /> Aonla's Premier Wedding Venue & Banquet Hall
+              <Sparkles className="h-3.5 w-3.5" /> Aonla&apos;s Premier Wedding Venue & Banquet Hall
             </span>
             <h1 className="heading-xl mx-auto max-w-5xl font-heading text-white">
               Shri Ji Mandapam Banquet Hall
@@ -124,7 +121,7 @@ export default function HomePage() {
               आंवला-बिसौली रोड पर भव्य मैरिज लॉन और वातानुकूलित बैंक्वेट हॉल
             </p>
             <p className="mt-6 mx-auto max-w-2xl text-base leading-8 text-neutral-200">
-              Celebrate your life's special moments in a setting that matches your dreams. Elegant architectural arches, spacious indoor hall, lush green outdoor party lawn, and luxurious guest rooms near Manona Dham.
+              Celebrate your life&apos;s special moments in a setting that matches your dreams. Elegant architectural arches, spacious indoor hall, lush green outdoor party lawn, and luxurious guest rooms near Manona Dham.
             </p>
           </Reveal>
 
@@ -355,7 +352,7 @@ export default function HomePage() {
                       </span>
                     </div>
                     <h3 className="font-heading text-3xl text-charcoal font-bold">{story.title}</h3>
-                    <p className="text-base leading-7 text-charcoal/70 italic">"{story.text}"</p>
+                    <p className="text-base leading-7 text-charcoal/70 italic">&ldquo;{story.text}&rdquo;</p>
                   </div>
                 </div>
               </Reveal>

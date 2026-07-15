@@ -20,7 +20,7 @@ export function Footer() {
             <p className="font-heading text-4xl text-crimson font-bold">Shri Ji Mandapam</p>
             <p className="text-[10px] uppercase tracking-wider text-gold font-bold">Banquet Hall & Lawn</p>
             <p className="mt-4 max-w-md text-sm leading-7 text-white/70">
-              Aonla's premier banquet hall and marriage celebration lawn. We offer grand air-conditioned indoor halls, lush green party lawns, luxury lodging, and premium pure veg catering.
+              Aonla&apos;s premier banquet hall and marriage celebration lawn. We offer grand air-conditioned indoor halls, lush green party lawns, luxury lodging, and premium pure veg catering.
             </p>
             <div className="mt-5 flex gap-3">
               {[Instagram, Facebook, Linkedin].map((Icon, index) => (

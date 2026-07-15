@@ -6,12 +6,20 @@ import { Footer } from "@/components/footer";
 import { FloatingActions } from "@/components/floating-actions";
 import { MotionProvider } from "@/components/motion-provider";
 import { Schema } from "@/components/schema";
+import { hotel } from "@/lib/hotel-data";
 
 const cormorant = Cormorant_Garamond({ subsets: ["latin"], weight: ["400", "500", "600", "700"], variable: "--font-cormorant", display: "swap" });
 const inter = Inter({ subsets: ["latin"], variable: "--font-inter", display: "swap" });
 const devanagari = Noto_Sans_Devanagari({ subsets: ["devanagari"], weight: ["400", "500", "700"], variable: "--font-devanagari", display: "swap" });
+const ogImage = {
+  url: "/shri_ji_1.png",
+  width: 1200,
+  height: 630,
+  alt: "Shri Ji Mandapam Banquet Hall Building View"
+};
 
 export const metadata: Metadata = {
+  metadataBase: new URL(hotel.baseUrl),
   title: {
     default: "Shri Ji Mandapam | Premium Banquet Hall & Wedding Lawn in Aonla",
     template: "%s | Shri Ji Mandapam"
@@ -24,14 +32,15 @@ export const metadata: Metadata = {
     description: "Shri Ji Mandapam is Aonla's premier wedding lawn and air-conditioned banquet hall near Manona Dham. Book us for grand weddings, sangeet, receptions, and celebrations.",
     url: "https://www.shrijimandapam.com",
     siteName: "Shri Ji Mandapam",
-    images: [{ url: "/shri_ji_1.png", width: 1200, height: 630, alt: "Shri Ji Mandapam Banquet Hall Building View" }],
+    images: [ogImage],
     locale: "en_IN",
     type: "website"
   },
   twitter: {
     card: "summary_large_image",
     title: "Shri Ji Mandapam | Premium Banquet Hall & Lawn",
-    description: "Shri Ji Mandapam is Aonla's premier wedding lawn and air-conditioned banquet hall near Manona Dham."
+    description: "Shri Ji Mandapam is Aonla's premier wedding lawn and air-conditioned banquet hall near Manona Dham.",
+    images: [ogImage]
   },
   robots: { index: true, follow: true }
 };

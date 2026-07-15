@@ -5,20 +5,12 @@ import Image from "next/image";
 import Link from "next/link";
 import { 
   ArrowLeft, 
-  MapPin, 
   Star, 
   SlidersHorizontal, 
   Check, 
-  Calendar, 
-  Users, 
-  Sparkles, 
   ShieldCheck, 
-  Building, 
   X,
-  Phone,
-  Clock,
   HelpCircle,
-  PartyPopper,
   CalendarClock,
   CreditCard,
   IndianRupee,
@@ -26,7 +18,6 @@ import {
   ListChecks,
   BadgeCheck
 } from "lucide-react";
-import { hotel } from "@/lib/hotel-data";
 import { BookingCalendar } from "@/components/booking-calendar";
 
 // Authentic Shri Ji Mandapam Packages
@@ -121,6 +112,8 @@ const initialPackages = [
   }
 ];
 
+type BookingPackage = (typeof initialPackages)[number];
+
 export default function BookNowPage() {
   // Search & Filter States
   const [selectedType, setSelectedType] = useState("all");
@@ -133,7 +126,7 @@ export default function BookNowPage() {
   const [availabilityChecked, setAvailabilityChecked] = useState(false);
 
   // Booking Modal States
-  const [bookingPackage, setBookingPackage] = useState<any | null>(null);
+  const [bookingPackage, setBookingPackage] = useState<BookingPackage | null>(null);
   const [clientName, setClientName] = useState("");
   const [clientPhone, setClientPhone] = useState("");
   const [clientEmail, setClientEmail] = useState("");
@@ -204,6 +197,10 @@ export default function BookNowPage() {
   // Handle Booking Submit (WhatsApp integration)
   const handleBookingSubmit = (e: React.FormEvent) => {
     e.preventDefault();
+    if (!bookingPackage) {
+      return;
+    }
+
     if (!clientName || !clientPhone || !clientDate) {
       alert("Please fill in Name, Phone Number, and Event Date!");
       return;

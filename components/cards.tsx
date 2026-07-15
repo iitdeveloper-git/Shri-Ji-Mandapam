@@ -32,7 +32,7 @@ export function ReviewCard({ name, role, text, rating }: { name: string; role: s
       <div className="mb-5 flex gap-1 text-gold" aria-label={`${rating} star review`}>
         {Array.from({ length: rating }).map((_, index) => <Star key={index} className="h-4 w-4 fill-current" />)}
       </div>
-      <p className="text-base leading-7 text-charcoal/75">"{text}"</p>
+      <p className="text-base leading-7 text-charcoal/75">&ldquo;{text}&rdquo;</p>
       <div className="mt-6 border-t border-champagne pt-5">
         <p className="font-bold text-green">{name}</p>
         <p className="text-sm text-charcoal/55">{role}</p>
