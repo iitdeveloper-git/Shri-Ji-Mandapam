@@ -4,9 +4,9 @@ import { hotel } from "@/lib/hotel-data";
 
 export function Footer() {
   const navLinks = [
-    { label: "Home", href: "#home" },
-    { label: "About Us", href: "#about" },
-    { label: "Our Venues & Services", href: "#services" },
+    { label: "Home", href: "/" },
+    { label: "About Us", href: "/about-us" },
+    { label: "Our Venues & Services", href: "/venues-services" },
     { label: "Wedding Gallery", href: "/gallery" },
     { label: "Contact Us", href: "/contact-us" },
     { label: "Book Now", href: "/book-now" },

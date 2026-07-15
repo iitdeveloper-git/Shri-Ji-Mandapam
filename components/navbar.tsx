@@ -18,8 +18,8 @@ export function Navbar() {
   }, []);
 
   const navLinks = [
-    { label: "Home", href: "#home" },
-    { label: "About Us", href: "#about" },
+    { label: "Home", href: "/" },
+    { label: "About Us", href: "/about-us" },
     { label: "Our Venues & Services", href: "/venues-services" },
     { label: "Wedding Gallery", href: "/gallery" },
     { label: "Contact Us", href: "/contact-us" },
