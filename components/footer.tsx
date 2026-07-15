@@ -7,8 +7,8 @@ export function Footer() {
     { label: "Home", href: "#home" },
     { label: "About Us", href: "#about" },
     { label: "Our Venues & Services", href: "#services" },
-    { label: "Wedding Gallery", href: "#gallery" },
-    { label: "Contact Us", href: "#contact" },
+    { label: "Wedding Gallery", href: "/gallery" },
+    { label: "Contact Us", href: "/contact-us" },
   ];
 
   return (

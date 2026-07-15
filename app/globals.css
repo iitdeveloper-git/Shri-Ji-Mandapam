@@ -135,6 +135,12 @@ body {
   background-color: rgba(182, 141, 64, 0.16);
 }
 
+.contact-field { display: grid; gap: 7px; }
+.contact-field > span { display: flex; align-items: center; gap: 6px; color: rgba(34,34,34,.68); font-size: .76rem; font-weight: 800; letter-spacing: .04em; text-transform: uppercase; }
+.contact-field input, .contact-field select, .contact-field textarea { width: 100%; border: 1px solid rgba(34,34,34,.14); border-radius: 2px; background: #faf8f4; padding: 12px 13px; color: #222; font: inherit; font-size: .9rem; outline: none; transition: 180ms ease; }
+.contact-field input:focus, .contact-field select:focus, .contact-field textarea:focus { border-color: #b68d40; background: #fff; box-shadow: 0 0 0 3px rgba(182,141,64,.12); }
+.contact-field textarea { resize: vertical; }
+
 .compact-card {
   border: 1px solid rgba(35, 66, 52, 0.08);
   background: #ffffff;
