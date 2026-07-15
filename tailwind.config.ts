@@ -11,7 +11,10 @@ const config: Config = {
         champagne: "#EADBC8",
         green: "#234234",
         brown: "#3A2A1C",
-        charcoal: "#222222"
+        charcoal: "#222222",
+        crimson: "#c1272d",
+        "crimson-dark": "#9e1b20",
+        "crimson-light": "#fdf2f2"
       },
       fontFamily: {
         heading: ["var(--font-cormorant)", "serif"],

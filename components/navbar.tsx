@@ -10,7 +10,6 @@ import { BookingModal } from "./booking-modal";
 export function Navbar() {
   const [open, setOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
-  const [bookingOpen, setBookingOpen] = useState(false);
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 40);
@@ -19,14 +18,22 @@ export function Navbar() {
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
+  const navLinks = [
+    { label: "Home", href: "#home" },
+    { label: "About Us", href: "#about" },
+    { label: "Our Venues & Services", href: "#services" },
+    { label: "Wedding Gallery", href: "#gallery" },
+    { label: "Contact Us", href: "#contact" },
+  ];
+
   return (
-    <header className="fixed inset-x-0 top-0 z-50 bg-white shadow-[0_8px_24px_rgba(35,66,52,0.08)]">
-      <div className="hidden bg-green py-2 text-xs font-semibold text-white/85 md:block">
+    <header className="fixed inset-x-0 top-0 z-50 bg-white shadow-[0_8px_24px_rgba(193,39,45,0.08)]">
+      <div className="hidden bg-crimson py-2 text-xs font-semibold text-white/85 md:block">
         <div className="luxury-container flex items-center justify-between gap-4">
           <div className="flex items-center gap-5">
-            <span className="flex items-center gap-2"><Phone className="h-3.5 w-3.5 text-gold" />{hotel.phone}</span>
-            <span className="flex items-center gap-2"><Mail className="h-3.5 w-3.5 text-gold" />{hotel.email}</span>
-            <span className="hidden items-center gap-2 lg:flex"><MapPin className="h-3.5 w-3.5 text-gold" />{hotel.shortAddress}</span>
+            <span className="flex items-center gap-2"><Phone className="h-3.5 w-3.5 text-gold" /> {hotel.phone}</span>
+            <span className="flex items-center gap-2"><Mail className="h-3.5 w-3.5 text-gold" /> {hotel.email}</span>
+            <span className="hidden items-center gap-2 lg:flex"><MapPin className="h-3.5 w-3.5 text-gold" /> {hotel.address}</span>
           </div>
           <div className="flex items-center gap-2">
             {["f", "x", "in", "ig"].map((item) => (
@@ -37,25 +44,28 @@ export function Navbar() {
       </div>
 
       <nav className={cn("luxury-container flex items-center justify-between bg-white transition-all", scrolled ? "py-3" : "py-4")}>
-        <Link href="/" className="flex items-center gap-3" aria-label="Hotel B Anand home">
-          <span className="grid h-11 w-11 place-items-center rounded-full bg-green font-heading text-xl text-gold">B</span>
+        <Link href="/" className="flex items-center gap-3" aria-label="Shri Ji Mandapam home">
+          <span className="grid h-11 w-11 place-items-center rounded-full bg-crimson font-heading text-xl text-gold font-bold">S</span>
           <span>
-            <span className="block font-heading text-2xl leading-none text-green">Hotel B Anand</span>
-            <span className="font-devanagari text-xs text-gold">होटल बी आनंद</span>
+            <span className="block font-heading text-2xl font-bold leading-none text-crimson">Shri Ji Mandapam</span>
+            <span className="text-[10px] uppercase tracking-wider text-gold font-bold">Banquet Hall & Lawn</span>
           </span>
         </Link>
 
         <div className="hidden items-center gap-1 xl:flex">
-          {navItems.slice(0, 8).map((item) => (
-            <Link key={item.href} href={item.href} className="rounded-full px-3 py-2 text-sm font-semibold text-charcoal/75 transition hover:bg-ivory hover:text-green">
+          {navLinks.map((item) => (
+            <Link key={item.href} href={item.href} className="rounded-full px-3.5 py-2 text-sm font-semibold text-charcoal/75 transition hover:bg-crimson-light hover:text-crimson">
               {item.label}
             </Link>
           ))}
         </div>
 
         <button 
-          onClick={() => setBookingOpen(true)}
-          className="hidden rounded-full bg-green px-6 py-3 text-sm font-bold text-white transition hover:bg-gold lg:inline-flex"
+          onClick={() => {
+            const el = document.getElementById("contact");
+            if (el) el.scrollIntoView({ behavior: "smooth" });
+          }}
+          className="hidden rounded-full bg-crimson px-6 py-3 text-sm font-bold text-white transition hover:bg-crimson-dark lg:inline-flex shadow-sm"
         >
           Book Now
         </button>
@@ -66,19 +76,20 @@ export function Navbar() {
       </nav>
 
       {open ? (
-        <div className="border-t border-green/10 bg-white p-4 shadow-soft lg:hidden">
+        <div className="border-t border-crimson/10 bg-white p-4 shadow-soft lg:hidden">
           <div className="luxury-container grid gap-2">
-            {navItems.map((item) => (
-              <Link key={item.href} href={item.href} onClick={() => setOpen(false)} className="rounded-xl bg-ivory px-4 py-3 font-semibold text-green">
+            {navLinks.map((item) => (
+              <Link key={item.href} href={item.href} onClick={() => setOpen(false)} className="rounded-xl bg-crimson-light px-4 py-3 font-semibold text-crimson">
                 {item.label}
               </Link>
             ))}
             <button 
               onClick={() => {
                 setOpen(false);
-                setBookingOpen(true);
+                const el = document.getElementById("contact");
+                if (el) el.scrollIntoView({ behavior: "smooth" });
               }}
-              className="mt-2 rounded-xl bg-green px-4 py-3 text-center font-bold text-white"
+              className="mt-2 rounded-xl bg-crimson px-4 py-3 text-center font-bold text-white"
             >
               Book Now
             </button>
@@ -87,7 +98,6 @@ export function Navbar() {
       ) : null}
 
       <ScrollProgress />
-      <BookingModal isOpen={bookingOpen} onClose={() => setBookingOpen(false)} />
     </header>
   );
 }

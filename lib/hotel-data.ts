@@ -27,17 +27,17 @@ import {
 } from "lucide-react";
 
 export const hotel = {
-  name: "Hotel B Anand",
-  hindiName: "होटल बी आनंद",
-  tagline: "Luxury Hotel · Restaurant · Premium Rooms",
-  hindiTagline: "मनोना धाम के पास सर्वश्रेष्ठ होटल · प्रीमियम रेस्टोरेंट · लक्ज़री रूम्स",
-  phone: "+91-7302755534",
-  whatsapp: "917302755534",
-  email: "info@hotelbanand.com",
-  address: "Aonla - Shahabad Road, Behta Janu, Aonla, Bareilly District, Uttar Pradesh 243301, India",
+  name: "Shri Ji Mandapam Banquet hall",
+  hindiName: "श्री जी मंडपम बैंक्वेट हॉल",
+  tagline: "Premium Banquet Hall & Wedding Lawn in Aonla",
+  hindiTagline: "आंवला का सर्वश्रेष्ठ बैंक्वेट हॉल और विवाह लॉन",
+  phone: "082734 76006",
+  whatsapp: "918273476006",
+  email: "info@shrijimandapam.com",
+  address: "Aonla-Bisauli Road, near manona dham, Aonla, Uttar Pradesh 243301",
   shortAddress: "Aonla, Bareilly, Uttar Pradesh",
-  coordinates: { lat: 28.2855111, lng: 79.1497908 },
-  baseUrl: "https://www.hotelbanand.com"
+  coordinates: { lat: 28.2721, lng: 79.1601 },
+  baseUrl: "https://www.shrijimandapam.com"
 };
 
 export const navItems = [
