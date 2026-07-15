@@ -49,7 +49,7 @@ export function Footer() {
             <p className="footer-title">Contact</p>
             <div className="mt-4 grid gap-4 text-sm text-white/72 font-semibold">
               <a 
-                href="https://www.google.com/maps/dir/28.4936737,77.1158283/Shri+Ji+Mandapam,+Aonla-Bisauli+Road,+near+manona+dham,+Aonla,+Uttar+Pradesh+243301/@28.2766899,79.1460182,731m/data=!3m1!1e3!4m8!4m7!1m0!1m5!1m1!1s0x390ab3003bc516df:0xc2ca5bc64c8aa47a!2m2!1d79.1508838!2d28.27669?hl=en-IN&entry=ttu&g_ep=EgoyMDI2MDcxMi4wIKXMDSoASAFQAw%3D%3D"
+                href="https://share.google/rvWQvE5dir6Yqm5mC"
                 target="_blank"
                 rel="noreferrer"
                 className="flex gap-3 hover:text-crimson transition"

@@ -429,7 +429,7 @@ export default function HomePage() {
 
               <div className="space-y-4 pt-4 border-t border-white/10 text-sm text-neutral-300">
                 <a 
-                  href="https://www.google.com/maps/dir/28.4936737,77.1158283/Shri+Ji+Mandapam,+Aonla-Bisauli+Road,+near+manona+dham,+Aonla,+Uttar+Pradesh+243301/@28.2766899,79.1460182,731m/data=!3m1!1e3!4m8!4m7!1m0!1m5!1m1!1s0x390ab3003bc516df:0xc2ca5bc64c8aa47a!2m2!1d79.1508838!2d28.27669?hl=en-IN&entry=ttu&g_ep=EgoyMDI2MDcxMi4wIKXMDSoASAFQAw%3D%3D"
+                  href="https://share.google/rvWQvE5dir6Yqm5mC"
                   target="_blank"
                   rel="noreferrer"
                   className="flex gap-4 hover:text-crimson transition group"
@@ -461,7 +461,7 @@ export default function HomePage() {
 
                 <div className="pt-2">
                   <a 
-                    href="https://www.google.com/maps/dir/28.4936737,77.1158283/Shri+Ji+Mandapam,+Aonla-Bisauli+Road,+near+manona+dham,+Aonla,+Uttar+Pradesh+243301/@28.2766899,79.1460182,731m/data=!3m1!1e3!4m8!4m7!1m0!1m5!1m1!1s0x390ab3003bc516df:0xc2ca5bc64c8aa47a!2m2!1d79.1508838!2d28.27669?hl=en-IN&entry=ttu&g_ep=EgoyMDI2MDcxMi4wIKXMDSoASAFQAw%3D%3D"
+                    href="https://share.google/rvWQvE5dir6Yqm5mC"
                     target="_blank"
                     rel="noreferrer"
                     className="inline-flex items-center gap-2 rounded-xl bg-crimson px-5 py-2.5 text-xs font-bold text-white transition hover:bg-crimson-dark shadow-sm"
@@ -547,13 +547,33 @@ export default function HomePage() {
 
               {/* Submit Button */}
               <button 
-                type="submit" 
+                 type="submit" 
                 disabled={submitted}
                 className="w-full rounded-xl bg-crimson hover:bg-crimson-dark text-white font-bold py-3.5 transition duration-200 shadow-sm uppercase tracking-wider text-xs flex items-center justify-center gap-2"
               >
                 {submitted ? "Sending Request..." : "Request Call / Details"}
               </button>
             </form>
+          </Reveal>
+        </div>
+      </section>
+
+      {/* 7. Interactive Google Maps Embed Section */}
+      <section className="bg-charcoal pb-20 pt-4">
+        <div className="luxury-container">
+          <Reveal>
+            <div className="overflow-hidden rounded-[32px] border border-white/10 shadow-glow relative">
+              <iframe 
+                src="https://maps.google.com/maps?q=Shri%20Ji%20Mandapam,%20Aonla-Bisauli%20Road,%20near%20manona%20dham,%20Aonla,%20Uttar%20Pradesh%20243301&t=&z=15&ie=UTF8&iwloc=&output=embed" 
+                width="100%" 
+                height="450" 
+                style={{ border: 0 }}
+                allowFullScreen={true}
+                loading="lazy" 
+                referrerPolicy="no-referrer-when-downgrade"
+                className="w-full h-[400px] object-cover opacity-90 transition duration-500 hover:opacity-100"
+              />
+            </div>
           </Reveal>
         </div>
       </section>
