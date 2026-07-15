@@ -22,7 +22,9 @@ import {
   CalendarClock,
   CreditCard,
   IndianRupee,
-  MessageCircle
+  MessageCircle,
+  ListChecks,
+  BadgeCheck
 } from "lucide-react";
 import { hotel } from "@/lib/hotel-data";
 import { BookingCalendar } from "@/components/booking-calendar";
@@ -246,7 +248,7 @@ Please confirm availability, final quotation and payment instructions. Thank you
   };
 
   return (
-    <main className="min-h-screen bg-ivory text-charcoal pt-24 pb-16">
+    <main className="min-h-screen bg-crimson-light text-charcoal pt-24 pb-16">
       
       {/* Top Banner section */}
       <section className="relative bg-charcoal text-white py-16 px-4 mb-8 overflow-hidden">
@@ -331,6 +333,22 @@ Please confirm availability, final quotation and payment instructions. Thank you
               <p><strong>Options ready for {new Date(`${searchDate}T00:00:00`).toLocaleDateString("en-IN", { day: "numeric", month: "long", year: "numeric" })}.</strong><span className="block text-xs text-white/65">Select a package below to send a provisional reservation request. Final availability is confirmed by the booking desk.</span></p>
             </div>
           ) : null}
+        </div>
+      </section>
+
+      {/* App-style reservation progress */}
+      <section className="luxury-container relative z-10 -mt-14 mb-8 px-4">
+        <div className="grid overflow-hidden rounded-2xl border border-crimson/10 bg-white shadow-soft sm:grid-cols-3">
+          {[
+            { number: "01", icon: CalendarClock, title: "Choose date & guests", text: "Select your preferred calendar range and guest count." },
+            { number: "02", icon: ListChecks, title: "Select venue package", text: "Compare hall, lawn, rooms and complete packages." },
+            { number: "03", icon: BadgeCheck, title: "Request confirmation", text: "Review pricing and receive confirmation from our desk." },
+          ].map((step, index) => (
+            <div key={step.number} className={`flex gap-4 p-5 ${index < 2 ? "border-b border-crimson/10 sm:border-b-0 sm:border-r" : ""}`}>
+              <span className="grid h-11 w-11 shrink-0 place-items-center rounded-full bg-crimson-light text-crimson"><step.icon className="h-5 w-5" /></span>
+              <div><p className="text-[9px] font-extrabold uppercase tracking-[.18em] text-crimson/55">Step {step.number}</p><h2 className="mt-1 text-sm font-extrabold">{step.title}</h2><p className="mt-1 text-xs leading-5 text-charcoal/50">{step.text}</p></div>
+            </div>
+          ))}
         </div>
       </section>
 
@@ -499,7 +517,7 @@ Please confirm availability, final quotation and payment instructions. Thank you
         <section className="lg:col-span-3 space-y-6">
           
           {/* Header Sorting Bar */}
-          <div className="bg-white p-4 rounded-xl border border-neutral-100 shadow-soft flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
+          <div className="bg-white p-4 rounded-2xl border border-crimson/10 shadow-soft flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
             <h2 className="font-bold text-lg text-charcoal/90">
               Shri Ji Mandapam: <span className="text-crimson font-extrabold">{filteredPackages.length} options found</span>
             </h2>
@@ -523,7 +541,7 @@ Please confirm availability, final quotation and payment instructions. Thank you
             {filteredPackages.map((item) => (
               <div 
                 key={item.id} 
-                className="bg-white rounded-[28px] border border-neutral-100 shadow-soft overflow-hidden grid grid-cols-1 md:grid-cols-3 transition-transform duration-200 hover:-translate-y-1 hover:shadow-glow"
+                className="bg-white rounded-2xl border border-crimson/10 shadow-soft overflow-hidden grid grid-cols-1 md:grid-cols-3 transition-transform duration-200 hover:-translate-y-1 hover:border-crimson/25 hover:shadow-glow"
               >
                 {/* Left Column: Image with Tag */}
                 <div className="relative h-64 md:h-full min-h-[220px] bg-charcoal">
@@ -560,7 +578,7 @@ Please confirm availability, final quotation and payment instructions. Thank you
                           <p className="text-xs font-bold text-charcoal">{item.ratingText}</p>
                           <p className="text-[10px] text-neutral-400 font-bold">{item.reviewsCount} reviews</p>
                         </div>
-                        <div className="h-9 w-9 rounded-lg bg-crimson text-white font-extrabold text-sm flex items-center justify-center shadow-sm">
+                        <div className="h-9 w-9 rounded-xl bg-crimson text-white font-extrabold text-sm flex items-center justify-center shadow-sm">
                           {item.rating}
                         </div>
                       </div>
@@ -592,7 +610,7 @@ Please confirm availability, final quotation and payment instructions. Thank you
                         setBookingPackage(item);
                         setClientDate(searchDate);
                       }}
-                      className="bg-crimson hover:bg-crimson-dark text-white font-bold px-6 py-3 rounded-xl transition duration-150 text-sm shadow-sm flex items-center justify-center gap-2 group"
+                      className="bg-crimson hover:bg-crimson-dark text-white font-bold px-6 py-3 rounded-lg transition duration-150 text-sm shadow-sm flex items-center justify-center gap-2 group"
                     >
                       Check Availability & Book
                     </button>
@@ -628,7 +646,7 @@ Please confirm availability, final quotation and payment instructions. Thank you
       {/* Booking Form Modal Overlay */}
       {bookingPackage && (
         <div className="fixed inset-0 z-50 bg-black/60 backdrop-blur-sm flex items-center justify-center p-4">
-          <div className="bg-white rounded-[28px] max-w-xl w-full shadow-2xl overflow-hidden border border-neutral-100 flex flex-col max-h-[90vh]">
+          <div className="bg-white rounded-2xl max-w-xl w-full shadow-2xl overflow-hidden border border-crimson/10 flex flex-col max-h-[90vh]">
             
             {/* Modal Header */}
             <div className="bg-crimson p-6 text-white relative">
@@ -798,14 +816,20 @@ Please confirm availability, final quotation and payment instructions. Thank you
                   </button>
                 </form>
               ) : (
-                <div className="text-center py-6 space-y-4 max-w-sm mx-auto">
+                <div className="py-5 space-y-5 max-w-md mx-auto">
                   <div className="mx-auto h-16 w-16 rounded-full bg-green/10 text-green flex items-center justify-center">
                     <Check className="h-10 w-10" />
                   </div>
-                  <h4 className="font-heading text-2xl font-bold text-green">WhatsApp Ticket Generated!</h4>
-                  <p className="text-neutral-500 text-xs leading-normal">
+                  <div className="text-center"><span className="rounded-full bg-crimson/10 px-3 py-1 text-[10px] font-bold uppercase tracking-wider text-crimson">Provisional request</span><h4 className="mt-3 font-heading text-3xl font-bold text-green">Reservation request ready</h4></div>
+                  <p className="text-center text-neutral-500 text-xs leading-normal">
                     We have drafted a reservation query text and opened a WhatsApp window to connect you directly with the booking desk of Shri Ji Mandapam.
                   </p>
+                  <div className="rounded-xl border border-crimson/10 bg-crimson-light p-4 text-xs">
+                    <div className="flex justify-between border-b border-crimson/10 pb-2"><span className="text-charcoal/50">Package</span><span className="max-w-[60%] text-right font-bold">{bookingPackage.title}</span></div>
+                    <div className="flex justify-between border-b border-crimson/10 py-2"><span className="text-charcoal/50">Event date</span><span className="font-bold">{clientDate}</span></div>
+                    <div className="flex justify-between border-b border-crimson/10 py-2"><span className="text-charcoal/50">Estimated total</span><span className="font-bold text-crimson">₹{bookingTotal.toLocaleString()}</span></div>
+                    <div className="flex justify-between pt-2"><span className="text-charcoal/50">Status</span><span className="font-bold text-crimson">Awaiting confirmation</span></div>
+                  </div>
                   <div className="pt-2">
                     <button 
                       onClick={closeModal}
