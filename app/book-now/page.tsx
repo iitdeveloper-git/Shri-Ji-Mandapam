@@ -25,6 +25,7 @@ import {
   MessageCircle
 } from "lucide-react";
 import { hotel } from "@/lib/hotel-data";
+import { BookingCalendar } from "@/components/booking-calendar";
 
 // Authentic Shri Ji Mandapam Packages
 const initialPackages = [
@@ -124,6 +125,7 @@ export default function BookNowPage() {
   const [maxBudget, setMaxBudget] = useState(200000);
   const [selectedAmenities, setSelectedAmenities] = useState<string[]>([]);
   const [searchDate, setSearchDate] = useState("");
+  const [searchEndDate, setSearchEndDate] = useState("");
   const [searchGuests, setSearchGuests] = useState("300-600");
   const [sortBy, setSortBy] = useState("recommended");
   const [availabilityChecked, setAvailabilityChecked] = useState(false);
@@ -323,7 +325,19 @@ Please confirm availability, final quotation and payment instructions. Thank you
       <section className="luxury-container grid gap-8 lg:grid-cols-4 items-start px-4">
         
         {/* Left Side: Booking.com filters panel */}
-        <aside className="bg-white rounded-2xl p-6 border border-neutral-100 shadow-soft space-y-6">
+        <aside className="space-y-5 lg:sticky lg:top-36">
+          <BookingCalendar
+            startDate={searchDate}
+            endDate={searchEndDate}
+            onStartDateChange={(date) => {
+              setSearchDate(date);
+              setClientDate(date);
+              setAvailabilityChecked(false);
+            }}
+            onEndDateChange={setSearchEndDate}
+            onAvailability={() => setAvailabilityChecked(true)}
+          />
+          <div className="bg-white rounded-2xl p-6 border border-neutral-100 shadow-soft space-y-6">
           <div className="flex items-center justify-between border-b pb-4">
             <h3 className="font-bold text-base flex items-center gap-2"><SlidersHorizontal className="h-4 w-4 text-crimson" /> Filter By</h3>
             <button 
@@ -464,6 +478,7 @@ Please confirm availability, final quotation and payment instructions. Thank you
             <p className="text-xs text-neutral-600 leading-normal">
               Get 100% reservation transparency without broker fees. All online reservations are completed directly through Manona Dham.
             </p>
+          </div>
           </div>
         </aside>
 
