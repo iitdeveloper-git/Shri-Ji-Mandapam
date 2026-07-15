@@ -9,6 +9,7 @@ export function Footer() {
     { label: "Our Venues & Services", href: "#services" },
     { label: "Wedding Gallery", href: "/gallery" },
     { label: "Contact Us", href: "/contact-us" },
+    { label: "Book Now", href: "/book-now" },
   ];
 
   return (

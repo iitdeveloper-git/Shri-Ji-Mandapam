@@ -28,7 +28,6 @@ export default function HomePage() {
   const [eventType, setEventType] = useState("wedding");
   const [guestCount, setGuestCount] = useState("300-600");
   const [eventDate, setEventDate] = useState("");
-  const [contactNo, setContactNo] = useState("");
 
   // Contact Form States
   const [name, setName] = useState("");
@@ -39,7 +38,8 @@ export default function HomePage() {
 
   const handleBookingSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    alert(`Checking availability for ${eventType} on ${eventDate} for ${guestCount} guests. We will call you on ${contactNo} shortly!`);
+    const params = new URLSearchParams({ type: eventType, date: eventDate, guests: guestCount });
+    window.location.href = `/book-now?${params.toString()}`;
   };
 
   const handleContactSubmit = (e: React.FormEvent) => {
@@ -181,7 +181,7 @@ export default function HomePage() {
                   type="submit" 
                   className="w-full h-[54px] rounded-xl bg-crimson hover:bg-crimson-dark text-white font-bold text-sm tracking-wide transition duration-200 flex items-center justify-center gap-2 shadow-sm"
                 >
-                  <Calendar className="h-4 w-4" /> Book Hall / Query
+                  <Calendar className="h-4 w-4" /> Continue to Book Now
                 </button>
 
               </form>

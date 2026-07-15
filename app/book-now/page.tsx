@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { 
@@ -142,6 +142,19 @@ export default function BookNowPage() {
   const [eventSlot, setEventSlot] = useState("evening");
   const [paymentMethod, setPaymentMethod] = useState("pay-at-venue");
   const [addOns, setAddOns] = useState<string[]>([]);
+
+  useEffect(() => {
+    const params = new URLSearchParams(window.location.search);
+    const date = params.get("date");
+    const guests = params.get("guests");
+    const type = params.get("type");
+    if (date) {
+      setSearchDate(date);
+      setClientDate(date);
+    }
+    if (guests) setSearchGuests(guests);
+    if (type) setSelectedType(type === "private" ? "lawn" : type === "wedding" ? "package" : "hall");
+  }, []);
 
   const today = new Date().toISOString().split("T")[0];
   const addOnOptions = [
