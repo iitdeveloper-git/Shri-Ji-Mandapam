@@ -60,15 +60,12 @@ export function Navbar() {
           ))}
         </div>
 
-        <button 
-          onClick={() => {
-            const el = document.getElementById("contact");
-            if (el) el.scrollIntoView({ behavior: "smooth" });
-          }}
+        <Link 
+          href="/book-now"
           className="hidden rounded-full bg-crimson px-6 py-3 text-sm font-bold text-white transition hover:bg-crimson-dark lg:inline-flex shadow-sm"
         >
           Book Now
-        </button>
+        </Link>
 
         <button className="icon-button lg:hidden" onClick={() => setOpen(!open)} aria-label="Open menu">
           {open ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
@@ -83,16 +80,13 @@ export function Navbar() {
                 {item.label}
               </Link>
             ))}
-            <button 
-              onClick={() => {
-                setOpen(false);
-                const el = document.getElementById("contact");
-                if (el) el.scrollIntoView({ behavior: "smooth" });
-              }}
-              className="mt-2 rounded-xl bg-crimson px-4 py-3 text-center font-bold text-white"
+            <Link 
+              href="/book-now"
+              onClick={() => setOpen(false)}
+              className="mt-2 rounded-xl bg-crimson px-4 py-3 text-center font-bold text-white block"
             >
               Book Now
-            </button>
+            </Link>
           </div>
         </div>
       ) : null}

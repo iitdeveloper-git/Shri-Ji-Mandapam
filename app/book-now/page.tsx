@@ -3,414 +3,717 @@
 import { useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
-import { ArrowLeft, ArrowRight, BedDouble, CalendarDays, CheckCircle2, KeyRound, Mail, User2, Users } from "lucide-react";
-import { hotel, rooms } from "@/lib/hotel-data";
+import { 
+  ArrowLeft, 
+  MapPin, 
+  Star, 
+  SlidersHorizontal, 
+  Check, 
+  Calendar, 
+  Users, 
+  Sparkles, 
+  ShieldCheck, 
+  Building, 
+  X,
+  Phone,
+  Clock,
+  HelpCircle,
+  PartyPopper
+} from "lucide-react";
+import { hotel } from "@/lib/hotel-data";
+
+// Authentic Shri Ji Mandapam Packages
+const initialPackages = [
+  {
+    id: 1,
+    title: "Complete Wedding Package (Lawn + Hall + Rooms)",
+    type: "package",
+    rating: 9.8,
+    reviewsCount: 148,
+    ratingText: "Exceptional",
+    price: 150000,
+    priceLabel: "per day / event",
+    image: "/shri_ji_1.png",
+    stars: 5,
+    tag: "Most Popular",
+    details: "Includes the fully decorated grand air-conditioned banquet hall, vast landscape lawn (15,000+ sq ft), 10 luxury guest stay rooms, and a private bridal suite.",
+    features: [
+      "AC Banquet Hall (800 capacity)",
+      "Lush Green Party Lawn",
+      "10 Luxury AC Guest Suites",
+      "Bridal Makeup Suite included",
+      "24/7 Power backup & decoration support"
+    ],
+    amenities: ["AC", "Decor", "Guest Stay", "Catering Ready"]
+  },
+  {
+    id: 2,
+    title: "Grand AC Banquet Hall Venue",
+    type: "hall",
+    rating: 9.6,
+    reviewsCount: 94,
+    ratingText: "Excellent",
+    price: 75000,
+    priceLabel: "per day",
+    image: "/shri_ji_reception.jpg",
+    stars: 5,
+    tag: "Best Indoor Space",
+    details: "Fully air-conditioned indoor banquet hall with high ceilings, premium chandeliers, built-in bridal stage, sound acoustics, and seating arrangements.",
+    features: [
+      "Comfortably hosts 500-800 guests",
+      "Built-in decorated bridal stage",
+      "Premium luxury lighting & chandeliers",
+      "Acoustic sound setup ready",
+      "Pure Veg pantry access"
+    ],
+    amenities: ["AC", "Decor"]
+  },
+  {
+    id: 3,
+    title: "Lush Green Outdoor Celebration Lawn",
+    type: "lawn",
+    rating: 9.5,
+    reviewsCount: 86,
+    ratingText: "Excellent",
+    price: 60000,
+    priceLabel: "per day",
+    image: "/shri_ji_facade_day.jpg",
+    stars: 5,
+    tag: "Best Outdoor",
+    details: "A massive open-air landscaped party lawn surrounded by beautiful boundary lighting, perfect for grand buffet setups, mandaps, and evening receptions.",
+    features: [
+      "Massive 15,000+ sq ft lawn area",
+      "Accommodates up to 1,500 guests",
+      "Fairy lights boundary decor included",
+      "DJ floor & stage space allocation",
+      "Catering buffet stall structures"
+    ],
+    amenities: ["Decor", "Catering Ready"]
+  },
+  {
+    id: 4,
+    title: "Luxury AC Guest Rooms (Pack of 5 Rooms)",
+    type: "rooms",
+    rating: 9.4,
+    reviewsCount: 42,
+    ratingText: "Very Good",
+    price: 15000,
+    priceLabel: "per night",
+    image: "/shri_ji_room_1.jpg",
+    stars: 4,
+    tag: "Stay Package",
+    details: "Pack of 5 newly built luxury stay rooms with premium double beds, air conditioning, modern attached washrooms, and immediate corridor lawn access.",
+    features: [
+      "Double King beds in all 5 rooms",
+      "Individual split air conditioners",
+      "Corridor walkway access",
+      "Clean attached western washrooms",
+      "24/7 service boy assistance"
+    ],
+    amenities: ["AC", "Guest Stay"]
+  }
+];
 
 export default function BookNowPage() {
-  const [step, setStep] = useState(1);
-  const [authMode, setAuthMode] = useState<"login" | "register">("login");
+  // Search & Filter States
+  const [selectedType, setSelectedType] = useState("all");
+  const [maxBudget, setMaxBudget] = useState(200000);
+  const [selectedAmenities, setSelectedAmenities] = useState<string[]>([]);
+  const [searchDate, setSearchDate] = useState("");
+  const [searchGuests, setSearchGuests] = useState("300-600");
+  const [sortBy, setSortBy] = useState("recommended");
 
-  // Form states
-  const [email, setEmail] = useState("");
-  const [phone, setPhone] = useState("");
-  const [name, setName] = useState("");
-  const [password, setPassword] = useState("");
+  // Booking Modal States
+  const [bookingPackage, setBookingPackage] = useState<any | null>(null);
+  const [clientName, setClientName] = useState("");
+  const [clientPhone, setClientPhone] = useState("");
+  const [clientEmail, setClientEmail] = useState("");
+  const [clientDate, setClientDate] = useState("");
+  const [cateringRequest, setCateringRequest] = useState("veg-catering");
+  const [notes, setNotes] = useState("");
+  const [isBooked, setIsBooked] = useState(false);
 
-  const [selectedRoom, setSelectedRoom] = useState(rooms[0].title);
-  const [checkIn, setCheckIn] = useState("");
-  const [checkOut, setCheckOut] = useState("");
-  const [guests, setGuests] = useState("2");
-  const [specialRequest, setSpecialRequest] = useState("");
-
-  const activeRoomData = rooms.find(r => r.title === selectedRoom) || rooms[0];
-  const roomPriceNum = parseInt(activeRoomData.price.replace(/[^\d]/g, ""), 10);
-
-  const calculateDays = () => {
-    if (!checkIn || !checkOut) return 1;
-    const start = new Date(checkIn);
-    const end = new Date(checkOut);
-    const diff = end.getTime() - start.getTime();
-    const days = Math.ceil(diff / (1000 * 60 * 60 * 24));
-    return days > 0 ? days : 1;
+  // Toggle Amenities Filter
+  const handleAmenityChange = (amenity: string) => {
+    if (selectedAmenities.includes(amenity)) {
+      setSelectedAmenities(selectedAmenities.filter(a => a !== amenity));
+    } else {
+      setSelectedAmenities([...selectedAmenities, amenity]);
+    }
   };
 
-  const daysCount = calculateDays();
-  const totalPrice = roomPriceNum * daysCount;
+  // Filter Logic
+  const filteredPackages = initialPackages.filter(item => {
+    // Type Filter
+    if (selectedType !== "all" && item.type !== selectedType) return false;
+    // Budget Filter
+    if (item.price > maxBudget) return false;
+    // Amenities Filter
+    if (selectedAmenities.length > 0) {
+      const hasAllSelected = selectedAmenities.every(a => item.amenities.includes(a));
+      if (!hasAllSelected) return false;
+    }
+    return true;
+  }).sort((a, b) => {
+    if (sortBy === "price-low") return a.price - b.price;
+    if (sortBy === "price-high") return b.price - a.price;
+    if (sortBy === "rating") return b.rating - a.rating;
+    return 0; // Default Recommended
+  });
 
-  const handleNext = () => {
-    if (step === 1) {
-      if (authMode === "login" && (!email || !password)) {
-        alert("Please enter both email and password.");
-        return;
-      }
-      if (authMode === "register" && (!name || !email || !phone || !password)) {
-        alert("Please fill in all registration fields.");
-        return;
-      }
+  // Handle Booking Submit (WhatsApp integration)
+  const handleBookingSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!clientName || !clientPhone || !clientDate) {
+      alert("Please fill in Name, Phone Number, and Event Date!");
+      return;
     }
-    if (step === 2) {
-      if (!checkIn || !checkOut) {
-        alert("Please select check-in and check-out dates.");
-        return;
-      }
-    }
-    if (step === 3) {
-      if (!name && authMode === "login") {
-        alert("Please enter guest name.");
-        return;
-      }
-    }
-    setStep(prev => prev + 1);
+
+    const waMessage = `🙏 नमस्ते Shri Ji Mandapam Aonla!
+मैंने वेबसाइट से बुकिंग पूछताछ की है। विवरण नीचे दिया गया है:
+
+👤 नाम: ${clientName}
+📞 मोबाइल: +91 ${clientPhone}
+✉️ ईमेल: ${clientEmail || "N/A"}
+🎉 बुकिंग पैकेज: ${bookingPackage.title}
+📅 आयोजन की तारीख: ${clientDate}
+🍽️ कैटरिंग अनुरोध: ${cateringRequest === "veg-catering" ? "100% Pure Veg Catering Required" : "Venue Decor Only (Self Catering)"}
+👥 मेहमानों की संख्या: ${searchGuests}
+💰 पैकेज बेस रेट: ₹${bookingPackage.price.toLocaleString()}
+✍️ विशेष अनुरोध: ${notes || "कोई नहीं"}
+
+कृपया बुकिंग उपलब्धता और आगे की प्रक्रिया सुनिश्चित करें। धन्यवाद!`;
+
+    window.open(`https://wa.me/918273476006?text=${encodeURIComponent(waMessage)}`, "_blank");
+    setIsBooked(true);
   };
 
-  const handleBack = () => {
-    setStep(prev => prev - 1);
-  };
-
-  const handleFinalConfirm = () => {
-    const message = `🙏 नमस्ते Hotel B Anand!
-मैंने वेबसाइट से एक कमरा बुक किया है। बुकिंग विवरण इस प्रकार है:
-
-👤 अतिथि का नाम: ${name || email.split("@")[0]}
-📱 पंजीकृत मोबाइल: ${phone || "N/A"}
-📧 पंजीकृत ईमेल: ${email}
-🛏️ कमरा प्रकार: ${selectedRoom}
-📅 Check-in: ${checkIn}
-📅 Check-out: ${checkOut}
-☀️ कुल दिन: ${daysCount} दिन
-👥 कुल मेहमान: ${guests}
-💰 कुल भुगतान: ₹${totalPrice.toLocaleString()} (${activeRoomData.price} / रात)
-✍️ विशेष अनुरोध: ${specialRequest || "None"}
-
-कृपया मेरी बुकिंग को कन्फर्म करें। धन्यवाद!`;
-
-    window.open(`https://wa.me/${hotel.whatsapp}?text=${encodeURIComponent(message)}`, "_blank");
-    setStep(5);
+  // Close modal reset
+  const closeModal = () => {
+    setBookingPackage(null);
+    setIsBooked(false);
+    setClientName("");
+    setClientPhone("");
+    setClientEmail("");
+    setClientDate("");
+    setNotes("");
   };
 
   return (
-    <main className="min-h-screen bg-ivory text-charcoal py-24 px-4">
-      <div className="mx-auto max-w-4xl rounded-[32px] bg-white p-6 shadow-glow md:p-12">
+    <main className="min-h-screen bg-ivory text-charcoal pt-24 pb-16">
+      
+      {/* Top Banner section */}
+      <section className="relative bg-charcoal text-white py-16 px-4 mb-8 overflow-hidden">
+        <Image 
+          src="/shri_ji_facade_day.jpg" 
+          alt="Shri Ji Mandapam Lawn Facade"
+          fill
+          priority
+          sizes="100vw"
+          className="object-cover opacity-30"
+        />
+        <div className="absolute inset-0 bg-gradient-to-b from-charcoal/40 via-charcoal/20 to-charcoal/90" />
         
-        {/* Back Link to Home */}
-        <div className="mb-8">
-          <Link href="/" className="inline-flex items-center gap-2 font-bold text-green hover:text-gold transition">
+        <div className="luxury-container relative z-10 text-center max-w-4xl">
+          <Link href="/" className="inline-flex items-center gap-2 text-gold font-bold text-xs uppercase tracking-widest hover:text-white transition mb-4">
             <ArrowLeft className="h-4 w-4" /> Back to Home Page
           </Link>
+          <h1 className="font-heading text-5xl text-white font-bold">Search Venues & Packages</h1>
+          <p className="mt-2 font-devanagari text-xl text-gold">श्री जी मंडपम - उपलब्धता एवं दरें</p>
+          
+          {/* Booking.com styled Search Header */}
+          <div className="mt-8 bg-white p-4 rounded-2xl shadow-lg text-charcoal grid gap-4 grid-cols-1 md:grid-cols-4 items-end text-left border border-neutral-100">
+            <div className="flex flex-col gap-1">
+              <span className="text-[10px] font-bold text-neutral-400 uppercase">Venue Type</span>
+              <select 
+                value={selectedType}
+                onChange={(e) => setSelectedType(e.target.value)}
+                className="w-full bg-neutral-50 rounded-xl px-3 py-2.5 text-sm font-semibold border-0 outline-none cursor-pointer"
+              >
+                <option value="all">All Venues / Packages</option>
+                <option value="package">Full Wedding Package</option>
+                <option value="hall">Indoor AC Hall Only</option>
+                <option value="lawn">Party Lawn Only</option>
+                <option value="rooms">Luxury Guest Rooms</option>
+              </select>
+            </div>
+            
+            <div className="flex flex-col gap-1">
+              <span className="text-[10px] font-bold text-neutral-400 uppercase">Preferred Date</span>
+              <div className="relative">
+                <input 
+                  type="date"
+                  value={searchDate}
+                  onChange={(e) => setSearchDate(e.target.value)}
+                  className="w-full bg-neutral-50 rounded-xl px-3 py-2.5 text-sm font-semibold border-0 outline-none cursor-pointer"
+                />
+              </div>
+            </div>
+
+            <div className="flex flex-col gap-1">
+              <span className="text-[10px] font-bold text-neutral-400 uppercase">Expected Guests</span>
+              <select 
+                value={searchGuests}
+                onChange={(e) => setSearchGuests(e.target.value)}
+                className="w-full bg-neutral-50 rounded-xl px-3 py-2.5 text-sm font-semibold border-0 outline-none cursor-pointer"
+              >
+                <option value="100-300">100 - 300 guests</option>
+                <option value="300-600">300 - 600 guests</option>
+                <option value="600-1000">600 - 1,000 guests</option>
+                <option value="1000+">1000+ guests</option>
+              </select>
+            </div>
+
+            <button 
+              onClick={() => alert(`Searching availability for ${selectedType} on ${searchDate || "preferred date"}...`)}
+              className="w-full bg-crimson hover:bg-crimson-dark text-white font-bold py-3 rounded-xl transition duration-150 text-sm shadow-sm"
+            >
+              Search Availability
+            </button>
+          </div>
         </div>
+      </section>
 
-        {/* Header */}
-        <div className="text-center mb-12">
-          <p className="eyebrow">Reservations</p>
-          <h1 className="mt-3 font-heading text-5xl text-green">Room Booking Process</h1>
-          <p className="mt-2 font-devanagari text-lg text-gold">होटल बुकिंग प्रक्रिया</p>
-        </div>
-
-        {/* Step Indicator */}
-        {step <= 4 && (
-          <div className="mb-12 grid grid-cols-4 gap-2 text-center text-xs font-bold uppercase tracking-wider text-charcoal/40">
-            <div className={`pb-2 border-b-4 transition ${step >= 1 ? "border-green text-green" : "border-gray-200"}`}>1. Auth / Login</div>
-            <div className={`pb-2 border-b-4 transition ${step >= 2 ? "border-green text-green" : "border-gray-200"}`}>2. Dates & Room</div>
-            <div className={`pb-2 border-b-4 transition ${step >= 3 ? "border-green text-green" : "border-gray-200"}`}>3. Guest Info</div>
-            <div className={`pb-2 border-b-4 transition ${step >= 4 ? "border-green text-green" : "border-gray-200"}`}>4. Confirmation</div>
+      {/* Main Content Layout Grid */}
+      <section className="luxury-container grid gap-8 lg:grid-cols-4 items-start px-4">
+        
+        {/* Left Side: Booking.com filters panel */}
+        <aside className="bg-white rounded-2xl p-6 border border-neutral-100 shadow-soft space-y-6">
+          <div className="flex items-center justify-between border-b pb-4">
+            <h3 className="font-bold text-base flex items-center gap-2"><SlidersHorizontal className="h-4 w-4 text-crimson" /> Filter By</h3>
+            <button 
+              onClick={() => {
+                setSelectedType("all");
+                setMaxBudget(200000);
+                setSelectedAmenities([]);
+              }}
+              className="text-xs text-crimson hover:underline font-bold"
+            >
+              Clear All
+            </button>
           </div>
-        )}
 
-        {/* Step 1: Login / Register */}
-        {step === 1 && (
-          <div className="mx-auto max-w-md">
-            <div className="mb-8 flex justify-center gap-4 border-b border-champagne pb-4">
-              <button 
-                onClick={() => setAuthMode("login")} 
-                className={`text-lg font-bold transition ${authMode === "login" ? "text-green border-b-2 border-green pb-2" : "text-charcoal/40"}`}
-              >
-                Sign In / लॉगिन
-              </button>
-              <button 
-                onClick={() => setAuthMode("register")} 
-                className={`text-lg font-bold transition ${authMode === "register" ? "text-green border-b-2 border-green pb-2" : "text-charcoal/40"}`}
-              >
-                Register / नया खाता
-              </button>
+          {/* Budget per day slider */}
+          <div className="space-y-3">
+            <h4 className="font-bold text-xs uppercase text-neutral-400 tracking-wider">Budget Per Day / Stay</h4>
+            <div className="flex justify-between text-xs font-semibold text-charcoal/70">
+              <span>Min: ₹10,000</span>
+              <span>Max: ₹{maxBudget.toLocaleString()}</span>
             </div>
+            <input 
+              type="range"
+              min="10000"
+              max="200000"
+              step="5000"
+              value={maxBudget}
+              onChange={(e) => setMaxBudget(Number(e.target.value))}
+              className="w-full accent-crimson cursor-pointer h-1.5 bg-neutral-100 rounded-lg"
+            />
+          </div>
 
-            <div className="space-y-4">
-              {authMode === "register" && (
-                <label className="block">
-                  <span className="block text-sm font-bold mb-1 text-charcoal/80">Full Name / पूरा नाम</span>
-                  <div className="relative">
-                    <User2 className="absolute left-4 top-1/2 -translate-y-1/2 h-5 w-5 text-gold" />
-                    <input 
-                      type="text" 
-                      placeholder="Rahul Sharma" 
-                      value={name} 
-                      onChange={e => setName(e.target.value)}
-                      className="w-full pl-12 pr-4 py-3.5 rounded-xl border border-champagne bg-ivory focus:border-gold outline-none"
-                    />
-                  </div>
-                </label>
-              )}
-
-              <label className="block">
-                <span className="block text-sm font-bold mb-1 text-charcoal/80">Email Address / ईमेल</span>
-                <div className="relative">
-                  <Mail className="absolute left-4 top-1/2 -translate-y-1/2 h-5 w-5 text-gold" />
-                  <input 
-                    type="email" 
-                    placeholder="email@example.com" 
-                    value={email} 
-                    onChange={e => setEmail(e.target.value)}
-                    className="w-full pl-12 pr-4 py-3.5 rounded-xl border border-champagne bg-ivory focus:border-gold outline-none"
-                  />
-                </div>
+          {/* Venue Category Filters */}
+          <div className="space-y-3">
+            <h4 className="font-bold text-xs uppercase text-neutral-400 tracking-wider">Venue Category</h4>
+            <div className="grid gap-2 text-sm">
+              <label className="flex items-center gap-3 cursor-pointer">
+                <input 
+                  type="radio" 
+                  name="type-filter" 
+                  checked={selectedType === "all"} 
+                  onChange={() => setSelectedType("all")} 
+                  className="accent-crimson h-4 w-4" 
+                />
+                <span>All Options</span>
               </label>
-
-              {authMode === "register" && (
-                <label className="block">
-                  <span className="block text-sm font-bold mb-1 text-charcoal/80">Mobile Number / मोबाइल नंबर</span>
-                  <div className="relative">
-                    <span className="absolute left-4 top-1/2 -translate-y-1/2 text-sm font-bold text-gold">+91</span>
-                    <input 
-                      type="tel" 
-                      placeholder="9876543210" 
-                      value={phone} 
-                      maxLength={10}
-                      onChange={e => setPhone(e.target.value.replace(/\D/g, ""))}
-                      className="w-full pl-14 pr-4 py-3.5 rounded-xl border border-champagne bg-ivory focus:border-gold outline-none"
-                    />
-                  </div>
-                </label>
-              )}
-
-              <label className="block">
-                <span className="block text-sm font-bold mb-1 text-charcoal/80">Password / पासवर्ड</span>
-                <div className="relative">
-                  <KeyRound className="absolute left-4 top-1/2 -translate-y-1/2 h-5 w-5 text-gold" />
-                  <input 
-                    type="password" 
-                    placeholder="••••••••" 
-                    value={password} 
-                    onChange={e => setPassword(e.target.value)}
-                    className="w-full pl-12 pr-4 py-3.5 rounded-xl border border-champagne bg-ivory focus:border-gold outline-none"
-                  />
-                </div>
+              <label className="flex items-center gap-3 cursor-pointer">
+                <input 
+                  type="radio" 
+                  name="type-filter" 
+                  checked={selectedType === "package"} 
+                  onChange={() => setSelectedType("package")} 
+                  className="accent-crimson h-4 w-4" 
+                />
+                <span>Complete Packages</span>
               </label>
-
-              <button 
-                onClick={handleNext} 
-                className="mt-6 flex w-full items-center justify-center gap-2 rounded-xl bg-green py-4 font-bold text-white transition hover:bg-gold"
-              >
-                {authMode === "login" ? "Login & Proceed" : "Register & Proceed"} <ArrowRight className="h-5 w-5" />
-              </button>
+              <label className="flex items-center gap-3 cursor-pointer">
+                <input 
+                  type="radio" 
+                  name="type-filter" 
+                  checked={selectedType === "hall"} 
+                  onChange={() => setSelectedType("hall")} 
+                  className="accent-crimson h-4 w-4" 
+                />
+                <span>Air-Conditioned Halls</span>
+              </label>
+              <label className="flex items-center gap-3 cursor-pointer">
+                <input 
+                  type="radio" 
+                  name="type-filter" 
+                  checked={selectedType === "lawn"} 
+                  onChange={() => setSelectedType("lawn")} 
+                  className="accent-crimson h-4 w-4" 
+                />
+                <span>Party Lawns</span>
+              </label>
+              <label className="flex items-center gap-3 cursor-pointer">
+                <input 
+                  type="radio" 
+                  name="type-filter" 
+                  checked={selectedType === "rooms"} 
+                  onChange={() => setSelectedType("rooms")} 
+                  className="accent-crimson h-4 w-4" 
+                />
+                <span>Stay Guest Rooms</span>
+              </label>
             </div>
           </div>
-        )}
 
-        {/* Step 2: Room Selection & Stay Dates */}
-        {step === 2 && (
-          <div className="space-y-6">
-            <div className="grid gap-6 md:grid-cols-2">
-              <label className="block">
-                <span className="block text-sm font-bold mb-1 text-charcoal/80"><BedDouble className="inline h-4 w-4 mr-1 text-gold" /> Select Room / कमरा चुनें</span>
-                <select 
-                  value={selectedRoom} 
-                  onChange={e => setSelectedRoom(e.target.value)}
-                  className="w-full p-4 rounded-xl border border-champagne bg-ivory font-bold text-green outline-none focus:border-gold"
-                >
-                  {rooms.map(room => (
-                    <option key={room.title} value={room.title}>{room.title} ({room.price}/night)</option>
-                  ))}
-                </select>
-              </label>
-
-              <label className="block">
-                <span className="block text-sm font-bold mb-1 text-charcoal/80"><Users className="inline h-4 w-4 mr-1 text-gold" /> Total Guests / मेहमान संख्या</span>
+          {/* Included Services checkboxes */}
+          <div className="space-y-3">
+            <h4 className="font-bold text-xs uppercase text-neutral-400 tracking-wider">Included Services</h4>
+            <div className="grid gap-2.5 text-sm">
+              <label className="flex items-center gap-3 cursor-pointer">
                 <input 
-                  type="number" 
-                  min="1" 
-                  max="10" 
-                  value={guests} 
-                  onChange={e => setGuests(e.target.value)}
-                  className="w-full p-4 rounded-xl border border-champagne bg-ivory outline-none focus:border-gold"
+                  type="checkbox" 
+                  checked={selectedAmenities.includes("AC")}
+                  onChange={() => handleAmenityChange("AC")}
+                  className="rounded accent-crimson h-4 w-4 cursor-pointer" 
                 />
+                <span>Air Conditioning (AC)</span>
               </label>
-            </div>
-
-            <div className="grid gap-6 md:grid-cols-2">
-              <label className="block">
-                <span className="block text-sm font-bold mb-1 text-charcoal/80"><CalendarDays className="inline h-4 w-4 mr-1 text-gold" /> Check-in Date / आगमन तिथि</span>
+              <label className="flex items-center gap-3 cursor-pointer">
                 <input 
-                  type="date" 
-                  value={checkIn} 
-                  onChange={e => setCheckIn(e.target.value)}
-                  className="w-full p-4 rounded-xl border border-champagne bg-ivory outline-none focus:border-gold"
+                  type="checkbox" 
+                  checked={selectedAmenities.includes("Decor")}
+                  onChange={() => handleAmenityChange("Decor")}
+                  className="rounded accent-crimson h-4 w-4 cursor-pointer" 
                 />
+                <span>Stage & Mandap Decor</span>
               </label>
-
-              <label className="block">
-                <span className="block text-sm font-bold mb-1 text-charcoal/80"><CalendarDays className="inline h-4 w-4 mr-1 text-gold" /> Check-out Date / प्रस्थान तिथि</span>
+              <label className="flex items-center gap-3 cursor-pointer">
                 <input 
-                  type="date" 
-                  value={checkOut} 
-                  min={checkIn}
-                  onChange={e => setCheckOut(e.target.value)}
-                  className="w-full p-4 rounded-xl border border-champagne bg-ivory outline-none focus:border-gold"
+                  type="checkbox" 
+                  checked={selectedAmenities.includes("Guest Stay")}
+                  onChange={() => handleAmenityChange("Guest Stay")}
+                  className="rounded accent-crimson h-4 w-4 cursor-pointer" 
                 />
+                <span>AC Guest Suites</span>
               </label>
-            </div>
-
-            {/* Room Preview Card */}
-            <div className="rounded-2xl border border-champagne bg-ivory p-5 flex flex-col md:flex-row gap-5 items-center">
-              <div className="relative h-32 w-full md:w-48 overflow-hidden rounded-xl bg-charcoal">
-                <Image src={activeRoomData.image} alt={activeRoomData.title} fill className="object-cover" />
-              </div>
-              <div className="flex-1">
-                <h3 className="text-xl font-bold text-green">{activeRoomData.title}</h3>
-                <p className="text-sm font-semibold text-gold mb-2">{activeRoomData.hi}</p>
-                <p className="text-sm text-charcoal/70">{activeRoomData.details}</p>
-              </div>
-            </div>
-
-            <div className="flex gap-4">
-              <button onClick={handleBack} className="flex flex-1 items-center justify-center gap-2 rounded-xl border border-champagne py-4 font-bold text-charcoal/60 transition hover:bg-ivory">
-                <ArrowLeft className="h-5 w-5" /> Back
-              </button>
-              <button onClick={handleNext} className="flex flex-1 items-center justify-center gap-2 rounded-xl bg-green py-4 font-bold text-white transition hover:bg-gold">
-                Continue <ArrowRight className="h-5 w-5" />
-              </button>
+              <label className="flex items-center gap-3 cursor-pointer">
+                <input 
+                  type="checkbox" 
+                  checked={selectedAmenities.includes("Catering Ready")}
+                  onChange={() => handleAmenityChange("Catering Ready")}
+                  className="rounded accent-crimson h-4 w-4 cursor-pointer" 
+                />
+                <span>Catering Prep Area</span>
+              </label>
             </div>
           </div>
-        )}
 
-        {/* Step 3: Guest Information */}
-        {step === 3 && (
-          <div className="space-y-6">
-            <div className="grid gap-6 md:grid-cols-2">
-              <label className="block">
-                <span className="block text-sm font-bold mb-1 text-charcoal/80">Primary Guest Name / अतिथि नाम</span>
-                <input 
-                  type="text" 
-                  value={name} 
-                  onChange={e => setName(e.target.value)}
-                  placeholder="Rahul Sharma"
-                  className="w-full p-4 rounded-xl border border-champagne bg-ivory outline-none focus:border-gold"
-                />
-              </label>
-
-              <label className="block">
-                <span className="block text-sm font-bold mb-1 text-charcoal/80">Contact Phone / संपर्क नंबर</span>
-                <input 
-                  type="tel" 
-                  value={phone} 
-                  onChange={e => setPhone(e.target.value.replace(/\D/g, ""))}
-                  placeholder="9876543210"
-                  className="w-full p-4 rounded-xl border border-champagne bg-ivory outline-none focus:border-gold"
-                />
-              </label>
+          {/* Direct verification badge */}
+          <div className="p-4 bg-crimson/5 rounded-xl border border-crimson/15 space-y-2">
+            <div className="flex items-center gap-2 text-crimson font-bold text-xs uppercase">
+              <ShieldCheck className="h-4 w-4" /> Direct Booking Support
             </div>
-
-            <label className="block">
-              <span className="block text-sm font-bold mb-1 text-charcoal/80">Special Requests / विशेष अनुरोध</span>
-              <textarea 
-                rows={4}
-                value={specialRequest} 
-                onChange={e => setSpecialRequest(e.target.value)}
-                placeholder="Examples: early check-in, pure veg dinner arrangement, ground floor room..."
-                className="w-full p-4 rounded-xl border border-champagne bg-ivory outline-none focus:border-gold resize-none"
-              />
-            </label>
-
-            <div className="flex gap-4">
-              <button onClick={handleBack} className="flex flex-1 items-center justify-center gap-2 rounded-xl border border-champagne py-4 font-bold text-charcoal/60 transition hover:bg-ivory">
-                <ArrowLeft className="h-5 w-5" /> Back
-              </button>
-              <button onClick={handleNext} className="flex flex-1 items-center justify-center gap-2 rounded-xl bg-green py-4 font-bold text-white transition hover:bg-gold">
-                Review Details <ArrowRight className="h-5 w-5" />
-              </button>
-            </div>
-          </div>
-        )}
-
-        {/* Step 4: Booking Summary & Final Confirmation */}
-        {step === 4 && (
-          <div className="space-y-6">
-            <div className="rounded-2xl border border-champagne bg-ivory p-6 space-y-4">
-              <h3 className="text-2xl font-bold text-green pb-2 border-b border-champagne/55">Booking Summary / बुकिंग सारांश</h3>
-              
-              <div className="grid gap-4 sm:grid-cols-2 text-sm">
-                <div>
-                  <span className="block text-charcoal/50 font-bold uppercase">Guest Name</span>
-                  <span className="text-base font-bold">{name || email.split("@")[0]}</span>
-                </div>
-                <div>
-                  <span className="block text-charcoal/50 font-bold uppercase">Contact Info</span>
-                  <span className="text-base font-semibold">{phone ? `+91 ${phone}` : "N/A"} / {email}</span>
-                </div>
-                <div>
-                  <span className="block text-charcoal/50 font-bold uppercase">Room Selected</span>
-                  <span className="text-base font-bold text-green">{selectedRoom}</span>
-                </div>
-                <div>
-                  <span className="block text-charcoal/50 font-bold uppercase">Guests Count</span>
-                  <span className="text-base font-bold">{guests} Guests</span>
-                </div>
-                <div>
-                  <span className="block text-charcoal/50 font-bold uppercase">Check-in</span>
-                  <span className="text-base font-bold">{checkIn}</span>
-                </div>
-                <div>
-                  <span className="block text-charcoal/50 font-bold uppercase">Check-out</span>
-                  <span className="text-base font-bold">{checkOut}</span>
-                </div>
-              </div>
-
-              <div className="pt-4 border-t border-champagne/55 flex justify-between items-center">
-                <div>
-                  <span className="block text-charcoal/50 font-bold uppercase">Fare Breakdown</span>
-                  <span className="text-sm font-semibold">{activeRoomData.price} × {daysCount} Days</span>
-                </div>
-                <div className="text-right">
-                  <span className="block text-charcoal/50 font-bold uppercase">Total Price</span>
-                  <span className="text-3xl font-bold text-gold">₹{totalPrice.toLocaleString()}</span>
-                </div>
-              </div>
-            </div>
-
-            <div className="rounded-xl bg-gold/10 p-4 border border-gold/20 text-sm text-gold-dark font-medium">
-              💡 <strong>Note:</strong> Clicking confirm will compose a structured WhatsApp reservation ticket to complete authentication and secure payment options directly.
-            </div>
-
-            <div className="flex gap-4">
-              <button onClick={handleBack} className="flex flex-1 items-center justify-center gap-2 rounded-xl border border-champagne py-4 font-bold text-charcoal/60 transition hover:bg-ivory">
-                <ArrowLeft className="h-5 w-5" /> Back
-              </button>
-              <button onClick={handleFinalConfirm} className="flex flex-1 items-center justify-center gap-2 rounded-xl bg-green py-4 font-bold text-white transition hover:bg-gold">
-                Confirm & WhatsApp Book <CheckCircle2 className="h-5 w-5" />
-              </button>
-            </div>
-          </div>
-        )}
-
-        {/* Step 5: Success Landing */}
-        {step === 5 && (
-          <div className="text-center py-12 space-y-6 max-w-md mx-auto">
-            <div className="mx-auto grid h-20 w-20 place-items-center rounded-full bg-green/10 text-green">
-              <CheckCircle2 className="h-12 w-12" />
-            </div>
-            <h2 className="font-heading text-4xl text-green">Ticket Generated!</h2>
-            <p className="font-devanagari text-xl text-gold">टिकट सफलतापूर्वक भेज दिया गया है</p>
-            <p className="text-sm leading-6 text-charcoal/70">
-              We have forwarded your booking summary to WhatsApp. Our front desk officer will call or reply instantly with your confirmation receipt and digital payment link.
+            <p className="text-xs text-neutral-600 leading-normal">
+              Get 100% reservation transparency without broker fees. All online reservations are completed directly through Manona Dham.
             </p>
-            <div className="pt-6">
-              <Link href="/" className="inline-flex rounded-full bg-green px-8 py-3.5 text-sm font-bold text-white transition hover:bg-gold">
-                Return to Homepage
-              </Link>
+          </div>
+        </aside>
+
+        {/* Right Side: Packages listing */}
+        <section className="lg:col-span-3 space-y-6">
+          
+          {/* Header Sorting Bar */}
+          <div className="bg-white p-4 rounded-xl border border-neutral-100 shadow-soft flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
+            <h2 className="font-bold text-lg text-charcoal/90">
+              Shri Ji Mandapam: <span className="text-crimson font-extrabold">{filteredPackages.length} options found</span>
+            </h2>
+            <div className="flex items-center gap-2 text-sm">
+              <span className="font-semibold text-neutral-400">Sort By:</span>
+              <select 
+                value={sortBy}
+                onChange={(e) => setSortBy(e.target.value)}
+                className="bg-neutral-50 px-3 py-1.5 rounded-lg border-0 font-bold outline-none cursor-pointer text-charcoal"
+              >
+                <option value="recommended">Our Recommendation</option>
+                <option value="price-low">Price: Low to High</option>
+                <option value="price-high">Price: High to Low</option>
+                <option value="rating">Review Score</option>
+              </select>
             </div>
           </div>
-        )}
 
-      </div>
+          {/* List of property cards */}
+          <div className="grid gap-6">
+            {filteredPackages.map((item) => (
+              <div 
+                key={item.id} 
+                className="bg-white rounded-[28px] border border-neutral-100 shadow-soft overflow-hidden grid grid-cols-1 md:grid-cols-3 transition-transform duration-200 hover:-translate-y-1 hover:shadow-glow"
+              >
+                {/* Left Column: Image with Tag */}
+                <div className="relative h-64 md:h-full min-h-[220px] bg-charcoal">
+                  <Image 
+                    src={item.image} 
+                    alt={item.title} 
+                    fill 
+                    className="object-cover" 
+                  />
+                  {item.tag && (
+                    <span className="absolute top-4 left-4 bg-crimson text-white text-[10px] uppercase font-extrabold tracking-wider px-3 py-1 rounded-full shadow-sm">
+                      {item.tag}
+                    </span>
+                  )}
+                </div>
+
+                {/* Middle Column: Description & features */}
+                <div className="p-6 md:col-span-2 flex flex-col justify-between">
+                  <div>
+                    {/* Header: Title and Rating */}
+                    <div className="flex items-start justify-between gap-4 mb-2">
+                      <div>
+                        <h3 className="font-heading text-2xl text-charcoal font-bold">{item.title}</h3>
+                        <div className="flex items-center gap-1 mt-1 text-gold">
+                          {[...Array(item.stars)].map((_, i) => (
+                            <Star key={i} className="h-3.5 w-3.5 fill-current" />
+                          ))}
+                        </div>
+                      </div>
+
+                      {/* Booking rating badge */}
+                      <div className="flex items-center gap-2 text-right shrink-0">
+                        <div>
+                          <p className="text-xs font-bold text-charcoal">{item.ratingText}</p>
+                          <p className="text-[10px] text-neutral-400 font-bold">{item.reviewsCount} reviews</p>
+                        </div>
+                        <div className="h-9 w-9 rounded-lg bg-crimson text-white font-extrabold text-sm flex items-center justify-center shadow-sm">
+                          {item.rating}
+                        </div>
+                      </div>
+                    </div>
+
+                    <p className="text-xs text-neutral-500 leading-normal mb-4">{item.details}</p>
+
+                    {/* Features bullet checklist */}
+                    <div className="grid gap-2 grid-cols-1 sm:grid-cols-2 text-xs font-medium text-neutral-700 mb-4">
+                      {item.features.map((feature, idx) => (
+                        <div key={idx} className="flex items-center gap-2">
+                          <Check className="h-4 w-4 text-green shrink-0 bg-green/10 rounded-full p-0.5" />
+                          <span>{feature}</span>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+
+                  {/* Price & Call-To-Action Bottom Bar */}
+                  <div className="border-t pt-4 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
+                    <div className="text-left">
+                      <span className="block text-[10px] uppercase font-bold text-neutral-400">Exclusive Pricing</span>
+                      <span className="text-3xl font-extrabold text-gold">₹{item.price.toLocaleString()}</span>
+                      <span className="text-xs text-neutral-500 font-semibold ml-1.5">{item.priceLabel}</span>
+                    </div>
+                    
+                    <button 
+                      onClick={() => setBookingPackage(item)}
+                      className="bg-crimson hover:bg-crimson-dark text-white font-bold px-6 py-3 rounded-xl transition duration-150 text-sm shadow-sm flex items-center justify-center gap-2 group"
+                    >
+                      Check Availability & Book
+                    </button>
+                  </div>
+                </div>
+
+              </div>
+            ))}
+
+            {filteredPackages.length === 0 && (
+              <div className="bg-white rounded-2xl p-12 text-center border border-neutral-100 shadow-soft space-y-4 max-w-lg mx-auto">
+                <HelpCircle className="h-16 w-16 text-neutral-300 mx-auto" />
+                <h3 className="font-heading text-2xl font-bold text-charcoal">No packages match your filters</h3>
+                <p className="text-sm text-neutral-500">
+                  Try clearing some of your selected service checks or increasing the maximum budget range to find matching venue facilities.
+                </p>
+                <button 
+                  onClick={() => {
+                    setSelectedType("all");
+                    setMaxBudget(200000);
+                    setSelectedAmenities([]);
+                  }}
+                  className="bg-crimson hover:bg-crimson-dark text-white font-bold px-5 py-2.5 rounded-xl transition duration-150 text-xs shadow-sm"
+                >
+                  Reset All Filters
+                </button>
+              </div>
+            )}
+          </div>
+        </section>
+      </section>
+
+      {/* Booking Form Modal Overlay */}
+      {bookingPackage && (
+        <div className="fixed inset-0 z-50 bg-black/60 backdrop-blur-sm flex items-center justify-center p-4">
+          <div className="bg-white rounded-[28px] max-w-xl w-full shadow-2xl overflow-hidden border border-neutral-100 flex flex-col max-h-[90vh]">
+            
+            {/* Modal Header */}
+            <div className="bg-crimson p-6 text-white relative">
+              <h3 className="font-heading text-2xl font-bold">{isBooked ? "Booking Query Sent!" : "Reserve Venue Space"}</h3>
+              <p className="text-xs text-white/80 font-medium mt-1">{bookingPackage.title}</p>
+              <button 
+                onClick={closeModal}
+                className="absolute top-6 right-6 text-white/80 hover:text-white transition bg-white/10 hover:bg-white/20 p-1.5 rounded-full"
+              >
+                <X className="h-5 w-5" />
+              </button>
+            </div>
+
+            {/* Modal Body / Scrollable Area */}
+            <div className="p-6 overflow-y-auto space-y-6 flex-1 text-sm">
+              
+              {!isBooked ? (
+                <form onSubmit={handleBookingSubmit} className="space-y-4">
+                  <div className="grid gap-4 sm:grid-cols-2">
+                    <div className="flex flex-col gap-1">
+                      <label className="text-[10px] uppercase font-bold text-neutral-500">Full Name</label>
+                      <input 
+                        type="text"
+                        required
+                        value={clientName}
+                        onChange={(e) => setClientName(e.target.value)}
+                        placeholder="Enter your name"
+                        className="w-full rounded-xl border border-neutral-200 px-4 py-2.5 text-sm outline-none focus:border-crimson"
+                      />
+                    </div>
+                    <div className="flex flex-col gap-1">
+                      <label className="text-[10px] uppercase font-bold text-neutral-500">Phone Number (WhatsApp)</label>
+                      <div className="relative">
+                        <span className="absolute left-4 top-1/2 -translate-y-1/2 font-bold text-neutral-400">+91</span>
+                        <input 
+                          type="tel"
+                          required
+                          maxLength={10}
+                          value={clientPhone}
+                          onChange={(e) => setClientPhone(e.target.value.replace(/\D/g, ""))}
+                          placeholder="9876543210"
+                          className="w-full rounded-xl border border-neutral-200 pl-14 pr-4 py-2.5 text-sm outline-none focus:border-crimson"
+                        />
+                      </div>
+                    </div>
+                  </div>
+
+                  <div className="grid gap-4 sm:grid-cols-2">
+                    <div className="flex flex-col gap-1">
+                      <label className="text-[10px] uppercase font-bold text-neutral-500">Email Address (Optional)</label>
+                      <input 
+                        type="email"
+                        value={clientEmail}
+                        onChange={(e) => setClientEmail(e.target.value)}
+                        placeholder="email@example.com"
+                        className="w-full rounded-xl border border-neutral-200 px-4 py-2.5 text-sm outline-none focus:border-crimson"
+                      />
+                    </div>
+                    <div className="flex flex-col gap-1">
+                      <label className="text-[10px] uppercase font-bold text-neutral-500">Preferred Event Date</label>
+                      <input 
+                        type="date"
+                        required
+                        value={clientDate}
+                        onChange={(e) => setClientDate(e.target.value)}
+                        className="w-full rounded-xl border border-neutral-200 px-4 py-2.5 text-sm outline-none focus:border-crimson cursor-pointer"
+                      />
+                    </div>
+                  </div>
+
+                  {/* Catering selector */}
+                  <div className="flex flex-col gap-1">
+                    <label className="text-[10px] uppercase font-bold text-neutral-500">Catering Preference</label>
+                    <select 
+                      value={cateringRequest}
+                      onChange={(e) => setCateringRequest(e.target.value)}
+                      className="w-full rounded-xl border border-neutral-200 px-4 py-2.5 text-sm outline-none focus:border-crimson bg-white cursor-pointer"
+                    >
+                      <option value="veg-catering">Include Pure Veg Indian Catering (स्वादिष्ट शाकाहारी भोजन)</option>
+                      <option value="decor-only">Venue & Decor Only (Catering arranged by self)</option>
+                    </select>
+                  </div>
+
+                  {/* Special Notes */}
+                  <div className="flex flex-col gap-1">
+                    <label className="text-[10px] uppercase font-bold text-neutral-500">Special Requirements / Customization</label>
+                    <textarea 
+                      rows={3}
+                      value={notes}
+                      onChange={(e) => setNotes(e.target.value)}
+                      placeholder="Enter details like expected guest count, stage floral decoration, or guest suite stay requirements..."
+                      className="w-full rounded-xl border border-neutral-200 px-4 py-2.5 text-sm outline-none focus:border-crimson resize-none"
+                    />
+                  </div>
+
+                  <div className="p-4 bg-gold/10 rounded-xl border border-gold/20 text-xs font-semibold text-gold-dark flex items-start gap-2 leading-relaxed">
+                    <span>💡</span>
+                    <span>
+                      Booking confirmation is finalized on WhatsApp directly with the manager. No advance payment is charged online.
+                    </span>
+                  </div>
+
+                  {/* Submit Button */}
+                  <button 
+                    type="submit"
+                    className="w-full bg-crimson hover:bg-crimson-dark text-white font-bold py-3.5 rounded-xl transition duration-150 text-sm shadow-sm flex items-center justify-center gap-2 uppercase tracking-wide"
+                  >
+                    Confirm & Send Reservation Query
+                  </button>
+                </form>
+              ) : (
+                <div className="text-center py-6 space-y-4 max-w-sm mx-auto">
+                  <div className="mx-auto h-16 w-16 rounded-full bg-green/10 text-green flex items-center justify-center">
+                    <Check className="h-10 w-10" />
+                  </div>
+                  <h4 className="font-heading text-2xl font-bold text-green">WhatsApp Ticket Generated!</h4>
+                  <p className="text-neutral-500 text-xs leading-normal">
+                    We have drafted a reservation query text and opened a WhatsApp window to connect you directly with the booking desk of Shri Ji Mandapam.
+                  </p>
+                  <div className="pt-2">
+                    <button 
+                      onClick={closeModal}
+                      className="w-full bg-charcoal hover:bg-neutral-800 text-white font-bold py-2.5 rounded-xl text-xs transition duration-150"
+                    >
+                      Close Window
+                    </button>
+                  </div>
+                </div>
+              )}
+
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* Micro Reveal library helper for animations */}
+      <script dangerouslySetInnerHTML={{__html: `
+        // Check scroll elements
+        const reveals = document.querySelectorAll('.Reveal');
+        const observer = new IntersectionObserver((entries) => {
+          entries.forEach(entry => {
+            if (entry.isIntersecting) {
+              entry.target.classList.add('active');
+            }
+          });
+        }, { threshold: 0.1 });
+        reveals.forEach(r => observer.observe(r));
+      `}} />
+
+      <style jsx global>{`
+        .Reveal {
+          opacity: 0;
+          transform: translateY(20px);
+          transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+        }
+        .Reveal.active {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      `}</style>
+      
     </main>
   );
 }
