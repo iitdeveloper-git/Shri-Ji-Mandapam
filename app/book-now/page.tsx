@@ -18,7 +18,11 @@ import {
   Phone,
   Clock,
   HelpCircle,
-  PartyPopper
+  PartyPopper,
+  CalendarClock,
+  CreditCard,
+  IndianRupee,
+  MessageCircle
 } from "lucide-react";
 import { hotel } from "@/lib/hotel-data";
 
@@ -122,6 +126,7 @@ export default function BookNowPage() {
   const [searchDate, setSearchDate] = useState("");
   const [searchGuests, setSearchGuests] = useState("300-600");
   const [sortBy, setSortBy] = useState("recommended");
+  const [availabilityChecked, setAvailabilityChecked] = useState(false);
 
   // Booking Modal States
   const [bookingPackage, setBookingPackage] = useState<any | null>(null);
@@ -132,6 +137,20 @@ export default function BookNowPage() {
   const [cateringRequest, setCateringRequest] = useState("veg-catering");
   const [notes, setNotes] = useState("");
   const [isBooked, setIsBooked] = useState(false);
+  const [eventSlot, setEventSlot] = useState("evening");
+  const [paymentMethod, setPaymentMethod] = useState("pay-at-venue");
+  const [addOns, setAddOns] = useState<string[]>([]);
+
+  const today = new Date().toISOString().split("T")[0];
+  const addOnOptions = [
+    { id: "premium-decor", label: "Premium floral décor", price: 25000 },
+    { id: "sound-dj", label: "DJ & professional sound", price: 15000 },
+    { id: "photo-video", label: "Photography coordination", price: 10000 },
+    { id: "extra-rooms", label: "5 additional guest rooms", price: 15000 },
+  ];
+  const addOnTotal = addOnOptions.filter((item) => addOns.includes(item.id)).reduce((sum, item) => sum + item.price, 0);
+  const bookingTotal = bookingPackage ? bookingPackage.price + addOnTotal : 0;
+  const suggestedAdvance = Math.round(bookingTotal * 0.2);
 
   // Toggle Amenities Filter
   const handleAmenityChange = (amenity: string) => {
@@ -140,6 +159,10 @@ export default function BookNowPage() {
     } else {
       setSelectedAmenities([...selectedAmenities, amenity]);
     }
+  };
+
+  const toggleAddOn = (id: string) => {
+    setAddOns((current) => current.includes(id) ? current.filter((item) => item !== id) : [...current, id]);
   };
 
   // Filter Logic
@@ -169,20 +192,25 @@ export default function BookNowPage() {
       return;
     }
 
-    const waMessage = `🙏 नमस्ते Shri Ji Mandapam Aonla!
-मैंने वेबसाइट से बुकिंग पूछताछ की है। विवरण नीचे दिया गया है:
+    const selectedAddOns = addOnOptions.filter((item) => addOns.includes(item.id));
+    const waMessage = `Namaste Shri Ji Mandapam Aonla!
+I would like to request a provisional event reservation.
 
-👤 नाम: ${clientName}
-📞 मोबाइल: +91 ${clientPhone}
-✉️ ईमेल: ${clientEmail || "N/A"}
-🎉 बुकिंग पैकेज: ${bookingPackage.title}
-📅 आयोजन की तारीख: ${clientDate}
-🍽️ कैटरिंग अनुरोध: ${cateringRequest === "veg-catering" ? "100% Pure Veg Catering Required" : "Venue Decor Only (Self Catering)"}
-👥 मेहमानों की संख्या: ${searchGuests}
-💰 पैकेज बेस रेट: ₹${bookingPackage.price.toLocaleString()}
-✍️ विशेष अनुरोध: ${notes || "कोई नहीं"}
+Name: ${clientName}
+Mobile: +91 ${clientPhone}
+Email: ${clientEmail || "Not provided"}
+Package: ${bookingPackage.title}
+Event date: ${clientDate}
+Preferred slot: ${eventSlot === "morning" ? "Morning (8 AM - 2 PM)" : eventSlot === "full-day" ? "Full day (8 AM - 11 PM)" : "Evening (4 PM - 11 PM)"}
+Guests: ${searchGuests}
+Catering: ${cateringRequest === "veg-catering" ? "Pure vegetarian catering required" : "Venue only / self catering"}
+Add-ons: ${selectedAddOns.length ? selectedAddOns.map((item) => item.label).join(", ") : "None"}
+Base price: INR ${bookingPackage.price.toLocaleString()}
+Estimated total: INR ${bookingTotal.toLocaleString()}
+Preferred payment: ${paymentMethod === "upi-advance" ? "UPI advance after availability confirmation" : "Pay at venue / bank transfer after confirmation"}
+Special request: ${notes || "None"}
 
-कृपया बुकिंग उपलब्धता और आगे की प्रक्रिया सुनिश्चित करें। धन्यवाद!`;
+Please confirm availability, final quotation and payment instructions. Thank you!`;
 
     window.open(`https://wa.me/918273476006?text=${encodeURIComponent(waMessage)}`, "_blank");
     setIsBooked(true);
@@ -197,6 +225,9 @@ export default function BookNowPage() {
     setClientEmail("");
     setClientDate("");
     setNotes("");
+    setEventSlot("evening");
+    setPaymentMethod("pay-at-venue");
+    setAddOns([]);
   };
 
   return (
@@ -242,9 +273,11 @@ export default function BookNowPage() {
               <span className="text-[10px] font-bold text-neutral-400 uppercase">Preferred Date</span>
               <div className="relative">
                 <input 
+                  id="booking-date"
                   type="date"
+                  min={today}
                   value={searchDate}
-                  onChange={(e) => setSearchDate(e.target.value)}
+                  onChange={(e) => { setSearchDate(e.target.value); setAvailabilityChecked(false); }}
                   className="w-full bg-neutral-50 rounded-xl px-3 py-2.5 text-sm font-semibold border-0 outline-none cursor-pointer"
                 />
               </div>
@@ -265,12 +298,24 @@ export default function BookNowPage() {
             </div>
 
             <button 
-              onClick={() => alert(`Searching availability for ${selectedType} on ${searchDate || "preferred date"}...`)}
+              onClick={() => {
+                if (!searchDate) {
+                  document.getElementById("booking-date")?.focus();
+                  return;
+                }
+                setAvailabilityChecked(true);
+              }}
               className="w-full bg-crimson hover:bg-crimson-dark text-white font-bold py-3 rounded-xl transition duration-150 text-sm shadow-sm"
             >
               Search Availability
             </button>
           </div>
+          {availabilityChecked ? (
+            <div className="mx-auto mt-4 flex max-w-2xl items-start gap-3 rounded-xl border border-gold/30 bg-charcoal/75 px-4 py-3 text-left text-sm backdrop-blur">
+              <Check className="mt-0.5 h-5 w-5 shrink-0 text-gold" />
+              <p><strong>Options ready for {new Date(`${searchDate}T00:00:00`).toLocaleDateString("en-IN", { day: "numeric", month: "long", year: "numeric" })}.</strong><span className="block text-xs text-white/65">Select a package below to send a provisional reservation request. Final availability is confirmed by the booking desk.</span></p>
+            </div>
+          ) : null}
         </div>
       </section>
 
@@ -515,7 +560,10 @@ export default function BookNowPage() {
                     </div>
                     
                     <button 
-                      onClick={() => setBookingPackage(item)}
+                      onClick={() => {
+                        setBookingPackage(item);
+                        setClientDate(searchDate);
+                      }}
                       className="bg-crimson hover:bg-crimson-dark text-white font-bold px-6 py-3 rounded-xl transition duration-150 text-sm shadow-sm flex items-center justify-center gap-2 group"
                     >
                       Check Availability & Book
@@ -616,11 +664,35 @@ export default function BookNowPage() {
                       <input 
                         type="date"
                         required
+                        min={today}
                         value={clientDate}
                         onChange={(e) => setClientDate(e.target.value)}
                         className="w-full rounded-xl border border-neutral-200 px-4 py-2.5 text-sm outline-none focus:border-crimson cursor-pointer"
                       />
                     </div>
+                  </div>
+
+                  {/* Event time slot */}
+                  <div className="space-y-2">
+                    <label className="text-[10px] uppercase font-bold text-neutral-500 flex items-center gap-2"><CalendarClock className="h-4 w-4 text-crimson" /> Preferred Booking Slot</label>
+                    <div className="grid gap-2 sm:grid-cols-3">
+                      {[
+                        { id: "morning", label: "Morning", time: "8 AM - 2 PM" },
+                        { id: "evening", label: "Evening", time: "4 PM - 11 PM" },
+                        { id: "full-day", label: "Full Day", time: "8 AM - 11 PM" },
+                      ].map((slot) => (
+                        <button
+                          key={slot.id}
+                          type="button"
+                          onClick={() => setEventSlot(slot.id)}
+                          className={`rounded-xl border p-3 text-left transition ${eventSlot === slot.id ? "border-crimson bg-crimson text-white" : "border-crimson/15 bg-crimson-light text-charcoal hover:border-crimson"}`}
+                        >
+                          <span className="block text-xs font-bold">{slot.label}</span>
+                          <span className={`text-[10px] ${eventSlot === slot.id ? "text-white/70" : "text-charcoal/50"}`}>{slot.time}</span>
+                        </button>
+                      ))}
+                    </div>
+                    <p className="text-[10px] text-neutral-500">Final slot is locked only after the venue team confirms availability.</p>
                   </div>
 
                   {/* Catering selector */}
@@ -636,6 +708,19 @@ export default function BookNowPage() {
                     </select>
                   </div>
 
+                  {/* Optional services */}
+                  <div className="space-y-2">
+                    <label className="text-[10px] uppercase font-bold text-neutral-500">Optional Services</label>
+                    <div className="grid gap-2 sm:grid-cols-2">
+                      {addOnOptions.map((item) => (
+                        <label key={item.id} className={`flex cursor-pointer items-start gap-3 rounded-xl border p-3 transition ${addOns.includes(item.id) ? "border-crimson bg-crimson/5" : "border-neutral-200"}`}>
+                          <input type="checkbox" checked={addOns.includes(item.id)} onChange={() => toggleAddOn(item.id)} className="mt-0.5 h-4 w-4 accent-crimson" />
+                          <span><span className="block text-xs font-bold text-charcoal">{item.label}</span><span className="text-[10px] font-semibold text-crimson">+ ₹{item.price.toLocaleString()}</span></span>
+                        </label>
+                      ))}
+                    </div>
+                  </div>
+
                   {/* Special Notes */}
                   <div className="flex flex-col gap-1">
                     <label className="text-[10px] uppercase font-bold text-neutral-500">Special Requirements / Customization</label>
@@ -648,11 +733,32 @@ export default function BookNowPage() {
                     />
                   </div>
 
-                  <div className="p-4 bg-gold/10 rounded-xl border border-gold/20 text-xs font-semibold text-gold-dark flex items-start gap-2 leading-relaxed">
-                    <span>💡</span>
-                    <span>
-                      Booking confirmation is finalized on WhatsApp directly with the manager. No advance payment is charged online.
-                    </span>
+                  {/* Price and payment */}
+                  <div className="rounded-2xl border border-crimson/15 bg-crimson-light p-4">
+                    <div className="flex items-center gap-2 text-xs font-bold uppercase tracking-wider text-crimson"><IndianRupee className="h-4 w-4" /> Estimated booking summary</div>
+                    <div className="mt-3 grid gap-2 text-xs">
+                      <div className="flex justify-between"><span className="text-charcoal/60">Package base price</span><span className="font-bold">₹{bookingPackage.price.toLocaleString()}</span></div>
+                      <div className="flex justify-between"><span className="text-charcoal/60">Selected add-ons</span><span className="font-bold">₹{addOnTotal.toLocaleString()}</span></div>
+                      <div className="flex justify-between border-t border-crimson/10 pt-2 text-sm"><span className="font-bold">Estimated total</span><span className="font-extrabold text-crimson">₹{bookingTotal.toLocaleString()}</span></div>
+                      <div className="flex justify-between text-[10px]"><span className="text-charcoal/55">Suggested advance after confirmation (20%)</span><span className="font-bold">₹{suggestedAdvance.toLocaleString()}</span></div>
+                    </div>
+                  </div>
+
+                  <div className="space-y-2">
+                    <label className="text-[10px] uppercase font-bold text-neutral-500 flex items-center gap-2"><CreditCard className="h-4 w-4 text-crimson" /> Payment Preference</label>
+                    <label className={`flex cursor-pointer items-center gap-3 rounded-xl border p-3 ${paymentMethod === "pay-at-venue" ? "border-crimson bg-crimson/5" : "border-neutral-200"}`}>
+                      <input type="radio" name="payment" checked={paymentMethod === "pay-at-venue"} onChange={() => setPaymentMethod("pay-at-venue")} className="h-4 w-4 accent-crimson" />
+                      <span><span className="block text-xs font-bold">Pay after confirmation</span><span className="text-[10px] text-charcoal/55">Cash, bank transfer or card at the booking desk</span></span>
+                    </label>
+                    <label className={`flex cursor-pointer items-center gap-3 rounded-xl border p-3 ${paymentMethod === "upi-advance" ? "border-crimson bg-crimson/5" : "border-neutral-200"}`}>
+                      <input type="radio" name="payment" checked={paymentMethod === "upi-advance"} onChange={() => setPaymentMethod("upi-advance")} className="h-4 w-4 accent-crimson" />
+                      <span><span className="block text-xs font-bold">UPI advance after availability check</span><span className="text-[10px] text-charcoal/55">The official payment link/QR is shared by the venue manager</span></span>
+                    </label>
+                  </div>
+
+                  <div className="p-4 bg-gold/20 rounded-xl border border-gold/40 text-xs font-semibold text-charcoal flex items-start gap-2 leading-relaxed">
+                    <ShieldCheck className="h-5 w-5 shrink-0 text-crimson" />
+                    <span>No payment is collected on this page. Submit the request first; pay only after availability, final quotation and official payment instructions are confirmed.</span>
                   </div>
 
                   {/* Submit Button */}
@@ -660,7 +766,7 @@ export default function BookNowPage() {
                     type="submit"
                     className="w-full bg-crimson hover:bg-crimson-dark text-white font-bold py-3.5 rounded-xl transition duration-150 text-sm shadow-sm flex items-center justify-center gap-2 uppercase tracking-wide"
                   >
-                    Confirm & Send Reservation Query
+                    <MessageCircle className="h-4 w-4" /> Review & Send Booking Request
                   </button>
                 </form>
               ) : (
