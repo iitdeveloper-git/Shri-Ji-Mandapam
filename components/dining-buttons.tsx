@@ -6,9 +6,9 @@ import { X } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 
 const diningOptions = [
-  { label: "Royal Thali", image: "/catering-3.jpg" },
-  { label: "Chef Table", image: "/catering-4.jpg" },
-  { label: "Private Dining", image: "/hotel-2.jpg" },
+  { label: "Royal Thali", image: "/catering_buffet_food.png" },
+  { label: "Chef Table", image: "/catering_setup_lawn.jpg" },
+  { label: "Private Dining", image: "/new-gallery-3.jpg" },
   { label: "Cocktail Bar", image: "https://images.unsplash.com/photo-1572116469696-31de0f17cc34?auto=format&fit=crop&w=1200&q=85" }
 ];
 

@@ -7,70 +7,70 @@ import { ChevronLeft, ChevronRight } from "lucide-react";
 
 const slides = [
   {
-    image: "/luxury-lobby-chandelier.png",
+    image: "/new-gallery-1.jpg",
     title: "Royal Chandelier Lobby",
     hi: "शाही झूमर लॉबी",
     text: "Experience the grand welcome under sparkling chandeliers in our premium reception lobby.",
     hiText: "हमारे प्रीमियम रिसेप्शन लॉबी में चमकते झूमरों के नीचे भव्य स्वागत का अनुभव करें।"
   },
   {
-    image: "/hotel-1.jpg",
+    image: "/shri_ji_facade_day.jpg",
     title: "Spiritual Assembly Hall",
     hi: "सत्संग और प्रार्थना हॉल",
     text: "A beautifully decorated grand assembly hall for pilgrim gatherings, prayers, and spiritual discourses.",
     hiText: "धार्मिक सभाओं, भजनों और सत्संग के लिए फूलों से सजाया गया भव्य प्रार्थना हॉल।"
   },
   {
-    image: "/catering-3.jpg",
+    image: "/catering_buffet_food.png",
     title: "Royal Shahi Thali",
     hi: "शाही राजभोग थाली",
     text: "Experience the true taste of shuddh shakahari traditional North Indian feasts.",
     hiText: "पारंपरिक उत्तर भारतीय शुद्ध शाकाहारी भोजन और शाही थाली का आनंद लें।"
   },
   {
-    image: "/front-desk-warm.png",
+    image: "/shri_ji_reception.jpg",
     title: "Warm Front Desk",
     hi: "24/7 स्वागत कक्ष",
     text: "Our concierge team is available 24/7 to assist you with temple timings, room service, and travel bookings.",
     hiText: "हमारा स्वागत कक्ष मंदिर के दर्शन समय, रूम सर्विस और यात्रा बुकिंग के लिए 24/7 उपलब्ध है।"
   },
   {
-    image: "/room-service-bed.jpg",
+    image: "/shri_ji_room_1.jpg",
     title: "Luxury Housekeeping",
     hi: "लक्ज़री हाउसकीपिंग",
     text: "Professional housekeeping team preparing your suite bed daily with fresh linens.",
     hiText: "ताजा साफ बिस्तरों के साथ आपके सुइट रूम को प्रतिदिन तैयार करती लक्ज़री हाउसकीपिंग सेवा।"
   },
   {
-    image: "/dining-celebration.jpg",
+    image: "/catering_setup_lawn.jpg",
     title: "Toast to Celebrations",
     hi: "उत्सव और टोस्ट",
     text: "Enjoy custom food pairings and raise a toast to special family reunions.",
     hiText: "विशेष पारिवारिक पुनर्मिलन और दावतों के बीच चियर्स और भोजन का आनंद लें।"
   },
   {
-    image: "/cityview-dining.png",
+    image: "/new-gallery-3.jpg",
     title: "Skyline Dining Room",
     hi: "आकाशगंगा डाइनिंग रूम",
     text: "Indulge in fine-dining menus overlooking the beautiful city skyline views.",
     hiText: "शहर के भव्य स्काईलाइन नज़ारों को देखते हुए शाही डिनर का आनंद लें।"
   },
   {
-    image: "/modern-hotel-lounge.png",
+    image: "/shri_ji_corridor.jpg",
     title: "Luxury Library Lounge",
     hi: "लक्ज़री लाइब्रेरी लाउंज",
     text: "Relax, read, or catch up in our cozy, modern library lounge designed for premium guests.",
     hiText: "हमारे आरामदायक और आधुनिक लाइब्रेरी लाउंज में आराम करें, पढ़ें या समय बिताएं।"
   },
   {
-    image: "/lounge-sunset.jpg",
+    image: "/wedding_night_entry.jpg",
     title: "Rooftop Sunset Lounge",
     hi: "रूफटॉप सनसेट लाउंज",
     text: "Experience twilight with panoramic views and ambient luxury seating.",
     hiText: "सुंदर दृश्यों और आरामदायक लक्जरी सीटों के साथ शाम की चाय और नाश्ते का आनंद लें।"
   },
   {
-    image: "/luxury-bar.png",
+    image: "/catering_buffet_food.png",
     title: "The Royal Executive Bar",
     hi: "शाही एक्जीक्यूटिव बार",
     text: "Sip custom concoctions and premium mocktails in our luxury industrial bar lounge.",
@@ -91,14 +91,14 @@ const slides = [
     hiText: "लक्ज़री रेन शावर और शानदार संगमरमर की दीवारों वाले हमारे प्रीमियम बाथरूम में स्नान का आनंद लें।"
   },
   {
-    image: "/indoor-pool-garden.jpg",
+    image: "/wedding_mandap_canopy.jpg",
     title: "Garden View Indoor Pool",
     hi: "बगीचे के दृश्य वाला इनडोर पूल",
     text: "Relax in our climate-controlled indoor pool overlooking beautiful lush green gardens.",
     hiText: "सुंदर हरे-भरे बगीचों के दृश्यों वाले हमारे वातानुकूलित इनडोर पूल में तैरने का आनंद लें।"
   },
   {
-    image: "/luxury-lap-pool.jpg",
+    image: "/wedding_stage_fireworks.png",
     title: "Luxury Lap Pool",
     hi: "लक्ज़री लैप पूल",
     text: "Enjoy a tranquil night swim in our masterfully designed lap pool with ambient illumination.",

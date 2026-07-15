@@ -62,7 +62,7 @@ export default function VenuesServicesPage() {
             </p>
           </div>
           <div className="relative h-80 rounded-xl overflow-hidden">
-            <Image src="/shri_ji_facade_night.jpg" alt="Garden Lawn night view" fill className="object-cover" />
+            <Image src="/wedding_night_entry.jpg" alt="Garden Lawn night view" fill className="object-cover" />
           </div>
         </div>
 
@@ -122,7 +122,7 @@ export default function VenuesServicesPage() {
             </div>
           </div>
           <div className="relative h-64 rounded-xl overflow-hidden">
-            <Image src="/shri_ji_facade_night.jpg" alt="Mandapam night view" fill className="object-cover" />
+            <Image src="/wedding_night_entry.jpg" alt="Mandapam night view" fill className="object-cover" />
           </div>
         </div>
       </section>
