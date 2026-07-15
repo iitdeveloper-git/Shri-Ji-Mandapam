@@ -21,7 +21,7 @@ export function Navbar() {
   const navLinks = [
     { label: "Home", href: "#home" },
     { label: "About Us", href: "#about" },
-    { label: "Our Venues & Services", href: "#services" },
+    { label: "Our Venues & Services", href: "/venues-services" },
     { label: "Wedding Gallery", href: "#gallery" },
     { label: "Contact Us", href: "#contact" },
   ];
