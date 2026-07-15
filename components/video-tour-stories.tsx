@@ -13,34 +13,34 @@ interface StorySlide {
 
 const slides: StorySlide[] = [
   {
-    image: "/hotel-b-anand-facade.png",
+    image: "/shri_ji_facade_day.jpg",
     badge: "Welcome",
-    title: "Hotel B Anand",
-    subtitle: "Experience premium hospitality and luxury comfort near Manona Dham."
+    title: "Shri Ji Mandapam",
+    subtitle: "Premium banquet hall and wedding lawn on Aonla-Bisauli Road, near Manona Dham."
   },
   {
-    image: "/room-service-bed.jpg",
+    image: "/shri_ji_1.png",
+    badge: "Night View",
+    title: "Grand Illuminated Facade",
+    subtitle: "Stunning architectural arches beautifully lit for evening celebrations."
+  },
+  {
+    image: "/shri_ji_room_1.jpg",
     badge: "Luxury Stay",
-    title: "Premium AC Suites",
-    subtitle: "Comfortable air-conditioned rooms with 24/7 royal room service."
+    title: "Premium Guest Suites",
+    subtitle: "Comfortable air-conditioned rooms with modern amenities and 24/7 service."
   },
   {
-    image: "/hotel-temple-shrine.png",
-    badge: "Devotion",
-    title: "Spiritual Sanctum",
-    subtitle: "Beautiful indoor marble temple for peaceful prayers and assembly."
+    image: "/wedding_mandap_canopy.jpg",
+    badge: "Weddings",
+    title: "Dream Wedding Venue",
+    subtitle: "Beautifully decorated mandap and stage setups for your special day."
   },
   {
-    image: "/indoor-pool-garden.jpg",
-    badge: "Recreation",
-    title: "Serene Garden Pool",
-    subtitle: "Relax and rejuvenate in our clean indoor swimming pool oasis."
-  },
-  {
-    image: "/basement-parking.png",
-    badge: "Convenience",
-    title: "Secure Parking Slots",
-    subtitle: "Spacious underground basement and valet parking for your safety."
+    image: "/shri_ji_reception.jpg",
+    badge: "Reception",
+    title: "Elegant Reception Lounge",
+    subtitle: "Modern marble reception desk with premium lighting and decor."
   }
 ];
 

@@ -83,18 +83,18 @@ export default function HomePage() {
   ];
 
   const galleryImages = [
-    { url: "/shri_ji_facade_day.jpg", caption: "Grand Facade Day View" },
     { url: "/shri_ji_1.png", caption: "Majestic Night Illumination" },
+    { url: "/shri_ji_facade_day.jpg", caption: "Grand Facade Day View" },
+    { url: "/shri_ji_reception.jpg", caption: "Premium Reception Lounge" },
     { url: "/wedding_stage_fireworks.png", caption: "Royal Stage Fireworks" },
     { url: "/wedding_mandap_canopy.jpg", caption: "Flower Canopy Mandap" },
-    { url: "/catering_setup_lawn.jpg", caption: "Lawn Catering Buffet" },
-    { url: "/catering_buffet_food.png", caption: "Pure Veg Delicacies" },
     { url: "/wedding_hall_chandeliers.jpg", caption: "Grand Chandeliers Hall" },
     { url: "/wedding_night_entry.jpg", caption: "Magical Light Entryway" },
     { url: "/wedding_couple_dance.png", caption: "Couple Celebration" },
-    { url: "/shri_ji_corridor.jpg", caption: "Guest Rooms Corridor" },
-    { url: "/shri_ji_room_1.jpg", caption: "Banquet Suite Bed" },
-    { url: "/shri_ji_reception.jpg", caption: "Reception & Lounge Counter" }
+    { url: "/catering_setup_lawn.jpg", caption: "Lawn Catering Buffet" },
+    { url: "/catering_buffet_food.png", caption: "Pure Veg Delicacies" },
+    { url: "/shri_ji_room_1.jpg", caption: "Banquet Suite Room" },
+    { url: "/shri_ji_corridor.jpg", caption: "Guest Rooms Corridor" }
   ];
 
   return (

@@ -104,12 +104,12 @@ export const successStories: SuccessStory[] = [
 ];
 
 export const galleryImages: GalleryImage[] = [
-  { id: "g1", url: "/wedding-1.jpg", caption: "The Royal Entrance" },
-  { id: "g2", url: "/wedding-2.jpg", caption: "Traditional Rituals" },
-  { id: "g3", url: "/wedding-3.jpg", caption: "Sangeet Night Celebration" },
-  { id: "g4", url: "/wedding-4.png", caption: "The Wedding Vows" },
-  { id: "g5", url: "/catering-1.jpg", caption: "Grand Feast & Catering" },
-  { id: "g6", url: "/catering-2.jpg", caption: "Floral Mandap Decor" },
+  { id: "g1", url: "/wedding_hall_chandeliers.jpg", caption: "Grand Chandeliers Hall" },
+  { id: "g2", url: "/wedding_mandap_canopy.jpg", caption: "Flower Canopy Mandap" },
+  { id: "g3", url: "/wedding_stage_fireworks.png", caption: "Royal Stage Fireworks" },
+  { id: "g4", url: "/wedding_couple_dance.png", caption: "Couple Celebration" },
+  { id: "g5", url: "/wedding_night_entry.jpg", caption: "Magical Light Entryway" },
+  { id: "g6", url: "/catering_setup_lawn.jpg", caption: "Lawn Catering Setup" },
 ];
 
 export const teamMembers: TeamMember[] = [
@@ -117,24 +117,24 @@ export const teamMembers: TeamMember[] = [
     id: "t1",
     name: "Aarav Mehta",
     role: "Chief Matchmaker",
-    image: "/wedding-2.jpg",
+    image: "/wedding_hall_chandeliers.jpg",
   },
   {
     id: "t2",
     name: "Meera Sen",
     role: "Relationship Manager",
-    image: "/wedding-1.jpg",
+    image: "/wedding_mandap_canopy.jpg",
   },
   {
     id: "t3",
     name: "Karan Johar",
     role: "Event & Wedding Coordinator",
-    image: "/wedding-3.jpg",
+    image: "/wedding_couple_dance.png",
   },
   {
     id: "t4",
     name: "Shalini Roy",
     role: "Family Consultant",
-    image: "/wedding-4.png",
+    image: "/wedding_night_entry.jpg",
   },
 ];
