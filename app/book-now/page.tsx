@@ -226,7 +226,7 @@ Special request: ${notes || "None"}
 
 Please confirm availability, final quotation and payment instructions. Thank you!`;
 
-    window.open(`https://wa.me/918273476006?text=${encodeURIComponent(waMessage)}`, "_blank");
+    window.open(`https://wa.me/917302755534?text=${encodeURIComponent(waMessage)}`, "_blank");
     setIsBooked(true);
   };
 

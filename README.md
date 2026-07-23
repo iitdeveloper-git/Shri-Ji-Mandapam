@@ -135,7 +135,7 @@ Shri-Ji-Mandapam/
 Aonla–Bisauli Road, near Manona Dham<br>
 Aonla, Uttar Pradesh 243301, India
 
-- 📞 **Phone:** [082734 76006](tel:+918273476006)
+- 📞 **Phone:** [+91 7302755534](tel:+917302755534)
 - ✉️ **Email:** [info@shrijimandapam.com](mailto:info@shrijimandapam.com)
 - 🌐 **Website:** [www.shrijimandapam.com](https://www.shrijimandapam.com)
 
